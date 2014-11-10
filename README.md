@@ -35,9 +35,9 @@ a baseline from which your teams should implement your own strategy for building
 To best articulate Sencha's experience building both frameworks and enterprise applications, we will divide this 
 discussion into four parts:
 
-  1. Readability
-  2. Maintainability
-  3. Preventing Errors
-  4. Performance
+  1. [Readability](Readable_JavaScript.md)
+  2. [Maintainability](Maintainable_JavaScript.md)
+  3. [Preventing Errors](Preventing_JavaScript_Errors.md)
+  4. [Performance](JavaScript_Performance.md)
 
 It is worth noting that many of the points we will cover might fit into more than one of these pillars. 

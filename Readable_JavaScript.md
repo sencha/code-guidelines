@@ -45,6 +45,7 @@ Intermediate namespaces should be short, descriptive and lowercase.
     // "bar" as an intermediate-level namespace
     // "Baz" as the class name
     Foo.bar.Baz = {};
+    Ext.data.reader.Json = {};
 
 ### <a name="Functions" />Functions
 
@@ -65,7 +66,7 @@ naming private functions and methods that are not encapsulated by a closure.
     };
 
 Note: more information about using function expressions vs. function declarations can be found in 
-section <a href="">Functions</a>.
+section [Functions](Preventing_JavaScript_Errors.md#Functions).
 
 ### <a name="Local_Vars" />Local Variables and Object Properties
 
@@ -291,7 +292,7 @@ In cases where you need to override default or inherited functionality, both inl
 actively encouraged so that the changes are perfectly clear.
 
     // OVERRIDE for bug EXTJS-12345
-    Ext.define('MyApp.view.CustomNumberField', {
+    Ext.define('MyApp.override.CustomNumberField', {
         override : 'Ext.form.field.Number',
      
         initComponent: function() {
@@ -324,7 +325,7 @@ Many developers have strong opinions on the topic of tabs-vs-spaces for spacing.
 four spaces in our own code because tab sizes are unpredictable; the only way we can guarantee readable code is 
 to enforce the use of spaces. Ultimately the goal is just to have consistency, so whatever your choice don't mix them!
     
-    //bad
+    // bad
     function doSomething(isTrue) {
      // < 1 space in
      if (isTrue) {
@@ -332,7 +333,7 @@ to enforce the use of spaces. Ultimately the goal is just to have consistency, s
     }// now you're just being confusing...
     }
     
-    //good
+    // good
     function doSomething(isTrue) {
         // <<<< 4 spaces in!
         if (isTrue) {
