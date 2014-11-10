@@ -34,9 +34,9 @@ at */{www}/Foo/bar/Baz.js*.
 
 Sencha typically follows Crockford's advice to declare variables at the top of their scope because:
 
-  1. finding variable declarations becomes easier
-  2. it makes the scope of the variables clear (as JavaScript does not have block scope)
-  3. variable declarations are [hoisted](http://www.adequatelygood.com/JavaScript-Scoping-and-Hoisting.html) to the top of their scope anyways
+1. finding variable declarations becomes easier
+2. it makes the scope of the variables clear (as JavaScript does not have block scope)
+3. variable declarations are [hoisted](http://www.adequatelygood.com/JavaScript-Scoping-and-Hoisting.html) to the top of their scope anyways
 
 
     function foo() {
@@ -71,7 +71,7 @@ Sencha prefers to use dot notation rather than bracket notation because it is ty
 more easily compressed. 
 
     var myObject = {
-        foo : ‘bar’
+        foo : 'bar'
     };
     
     // works, but not preferred
@@ -142,7 +142,7 @@ where the member names are arbitrary strings or names -- create an object for th
 
 Note: some cases exist where declaring a fixed-dimension array for 
 [performance reasons](http://www.slideshare.net/doris1/oscon-developing-high-performance-websites-and-modern-apps-with-javascript-and-html5faster-siteandappformeetupforoscon) 
-might make sense. In those cases it's fine to use the new Array(length) notation instead, but there are many 
+might make sense. In those cases it's fine to use the *new Array(length)* notation instead, but there are many 
 implications to doing so.
 
 ## <a name="Debugging_Statements" />Debugging Statements
@@ -243,7 +243,7 @@ to call many methods on the same object in sequence during a single statement. T
 allow the chain to continue:
 
     //pseudocode
-    getElement(‘myDiv’).width(100).height(100).color(‘red’) // etc.
+    getElement('myDiv').width(100).height(100).color('red') // etc.
 
 Sencha urges some caution with this pattern as the lengthy method chains can turn into spaghetti code over time 
 in large codebases. In many cases, abstracting much of this behavior into a utility method 

@@ -87,7 +87,7 @@ In many cases, the use of guard clauses makes good sense as they highlight excep
             return;
         }
     
-        //default behavior…
+        //default behavior...
         doSomething();
     }
     
@@ -209,7 +209,7 @@ Consider the following example:
         var el = document.getElementById('el');
     
         el.addEventListener(
-            ‘click’, 
+            'click', 
             function() { // anonymous function
                 el.style.backgroundColor = 'red';
             }
