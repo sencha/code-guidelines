@@ -38,14 +38,15 @@ Sencha typically follows Crockford's advice to declare variables at the top of t
 2. it makes the scope of the variables clear (as JavaScript does not have block scope)
 3. variable declarations are [hoisted](http://www.adequatelygood.com/JavaScript-Scoping-and-Hoisting.html) to the top of their scope anyways
 
-
-    function foo() {
-        var bar = 1; // good
+```
+function foo() {
+    var bar = 1; // good
     
-        if (true) {
-            var baz = 2; // bad; "baz" should be declared above
-        }
+    if (true) {
+        var baz = 2; // bad; "baz" should be declared above
     }
+}
+```
     
 ### <a name="Declaring_Multiple_Variables" />Declaring Multiple Variables
 
