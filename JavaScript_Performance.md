@@ -2,15 +2,29 @@
 
 > *"Performance is only a problem if performance is a problem."*
 
-Every developer should care about application performance -- but developers also shouldn't spend time optimizing 
-minute sections of code without first proving such efficiencies are necessary. Sencha has identified the following 
-techniques as proven methods for improving application performance:
+Every developer should care about performance -- but developers also shouldn't spend time optimizing minute sections 
+of code without first proving such efficiencies are necessary. For example, optimizations that make sense in a 
+JavaScript library/framework may have little impact in application code.
+
+Given our experience building the Ext JS and Touch frameworks and our exposure to customer applications, Sencha has 
+identified the following techniques as proven methods for improving performance:
+
+###Library or Framework Code
 
   - [Loops](#Loops)
   - [Try \ Catch](#Try_Catch)
   - [Page Reflow](#Page_Reflow)
   - [Modifying the DOM](#Modifying_The_DOM)
   - [Function-based Iteration](#Function_Based_Iteration)
+
+###Application Code
+
+The Yahoo team put together a document of [exceptional performance techniques](https://developer.yahoo.com/performance/) 
+that is so thorough it’s hard to add anything.
+
+Nevertheless, Sencha applications should utilize Sencha Cmd as part of their build process in order to compress the 
+code to the smallest possible size. Be sure to follow 
+our [Compiler-Friendly Code Guidelines](http://docs.sencha.com/cmd/5.x/cmd_compiler.html)!
 
 ## <a name="Loops" />Loops
 

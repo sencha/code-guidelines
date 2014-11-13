@@ -99,7 +99,7 @@ Finally, bracket notation can be very useful when using a variable to access obj
 
 It is also considered good practice to define default values in many cases.
 
-For simple values, you can use `||` to define default values. If the left-hand value is falsy then the right-hand 
+For simple situations, you can use `||` to define default values. If the left-hand value is falsy then the right-hand 
 value will be used.
 
     function init(config) {
@@ -235,7 +235,7 @@ readability.
         'Who lives in a pineapple under the sea?',
         'Sponge Bob Square Pants!',
         'Absorbent and yellow and porous is he!'
-        ].join(' ');
+    ].join(' ');
 
 ## <a name="Method_Chains" />Method Chains
 

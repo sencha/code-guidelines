@@ -14,6 +14,10 @@ adopting a defensive programming mindset can help to prevent many runtime errors
 
 ## <a name="Removing_Lint" />Removing Lint
 
+JavaScript "lint" tools read your source code to help identify common mistakes -- things as subjective as multiple 
+`var` statements in a function, or as objective as flagrant syntax errors. These mistakes are considered "lint" 
+and should be removed or restructured.
+
 Using tools such as JSLint, ESLint, JSHint, etc is always recommended during development. Many popular IDEs even have 
 direct integration with these tools.
 
@@ -38,6 +42,23 @@ to be used as a statement, which can mask some tricky errors.
     var a = obj;
     [a].forEach(logProp); //this works fine
     
+    
+    // bad
+    var example = function() {
+        // because of the line break, ASI returns “undefined”
+        return
+        {
+            foo: 123
+        };
+    };
+    
+    // good
+    var example = function() {
+        return {
+            foo: 123
+        };
+    };
+    
 ## <a name="Trailing_Commas" />Trailing Commas
 
 Trailing commas have caused more headaches in JavaScript development over the years than perhaps anything else.
@@ -54,6 +75,9 @@ browsers (particularly IE <9) encounter unexpected behavior: trailing commas in 
 errors, while trailing commas in array literal would return inaccurate results for Array.length. 
 
 Therefore, as a best practice, Sencha discourages developers from using them.
+
+On a related note, some developers prefer to use leading commas to avoid this problem. Sencha doesn't feel that 
+solution adequately solves the issue, and furthermore we believe it reduces the readability of the code.
 
 ## <a name="Brackets_Blocks" />Brackets and Blocks
 
@@ -138,6 +162,18 @@ in an if statement:
 
 In short, you need to be very careful when testing the equality of any variables when not using the strict 
 equality operators!
+
+However, there are some situations in which using truthy or falsy values without direct comparison are acceptable -- 
+but again, developers should always be cautious about the values they expect.
+
+    if (!disabled) {
+        // ...
+    }
+    
+    // or
+    if (enabled) {
+        // ...
+    }
 
 ## <a name="Prototypes" />Prototypes
 
