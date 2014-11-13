@@ -285,4 +285,5 @@ To avoid the second problem, carefully craft your scopes to prevent leaks and pr
         })();
     }
 
-
+One final note: the risks exposed by the anonymous function pattern are often mitigated by following the paradigms 
+of the Sencha class system, where the framework manages much of this scoping and binding for you.
