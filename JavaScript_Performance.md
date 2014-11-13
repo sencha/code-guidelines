@@ -36,6 +36,25 @@ memory, and garbage collection cycles:
             foo : bar
         });
     }
+    
+    
+Calculate array length only once upfront and assign its value to a variable. This will prevent measuring it for 
+every iteration.
+
+    // bad
+    var i;
+    for(i=0; i<items.length; i++){
+        // some code
+    }
+    
+    // good
+    var i, len;
+    for(i=0, len=items.length; i<len; i++){
+        // some code
+    }
+
+Whenever possible avoid `for/in` type of loop as they are known to [negatively impact performance](http://jsperf.com/for-in-vs-keys-vs-for). 
+    
 
 ## <a name="Try_Catch" />Try \ Catch
 

@@ -70,7 +70,7 @@ section [Functions](Preventing_JavaScript_Errors.md#Functions).
 
 ### <a name="Local_Vars" />Local Variables and Object Properties
 
-Always use *var* to declare local variables -- not doing so will result in the creation of global variables, and we want 
+Always use `var` to declare local variables -- not doing so will result in the creation of global variables, and we want 
 to avoid polluting the global namespace. See the [Constants and Global Variables](#Constants_Global_Vars) section below 
 for more details.
 
@@ -96,17 +96,20 @@ leading underscore "_" when naming private properties.
 Variables should be given meaningful names, so that the intended purpose and functionality of the variables is 
 clear (while also concise). Avoid single letter names; the lone exception to this rule would be an iterator.
 
-    // bad, easy to confuse with number 1
+    // bad, too short. Not descriptive and easy to confuse with number "1"
     var l = group.length;
     
-    // good
+    // bad, variable name is unnecessarily long
+    var mainClassConfigVariableSectionOneRefreshInterval = 5000;
+    
+    // good, variable name is concise yet still meaningful
     var len = group.length;
     
     // iterators are an exception
     var i;
     for (i = 0; i < len; i++) {}
 
-Use one *var* declaration when creating multiple variables because it is easier to read. Sencha recommends 
+Use one `var` declaration when creating multiple variables because it is easier to read. Sencha recommends 
 declaring each variable assignment on a new line; declare unassigned variables last, though these can be on the 
 same line. 
 
@@ -146,9 +149,9 @@ has been defined.
 
 ### <a name="Special_Cases" />Special Cases
 
-Other special cases also exist -- for example, naming references to *this*. 
+Other special cases also exist -- for example, naming references to `this`. 
 
-As an internal convention, Sencha uses the name *me* when there is a need to capture a reference to *this* within 
+As an internal convention, Sencha uses the name `me` when there is a need to capture a reference to `this` within 
 a closure. Not everyone agrees -- Christian Johansen is [a notable example](https://gist.github.com/cjohansen/4135065) -- 
 but the greater point is to manage these special cases consistently throughout your codebase.
 
@@ -161,8 +164,9 @@ but the greater point is to manage these special cases consistently throughout y
         };
     };
 
-In the Sencha frameworks, we abide by the rule of four: if a given scope references *this* four or more times, 
-cache *this* using the local variable *me* as it will make the minified source smaller.
+Another important thing to note is that this is a keyword and can’t participate in minifying. In the Sencha frameworks, 
+we abide by the rule of four: if a given scope references `this` four or more times, 
+cache `this` using the local variable `me` as it will make the minified source smaller.
 
     // bad
     function foo() {
@@ -285,6 +289,56 @@ Regular expressions should also always be explained with a comment because of th
     var romanNums = /^M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$/;
 
 Commenting out entire blocks of code should be generally avoided because they serve no purpose and create bloated code.
+
+    // Why leave the following code in production?
+    items    : [
+        //{
+        //    xtype        : 'booleancolumn',
+        //    width        : 5,
+        //    resizable    : false,
+        //    defaultWidth : 5,
+        //    sortable     : false,
+        //    dataIndex    : 'isOwn',
+        //    groupable    : false,
+        //    hideable     : false,
+        //    lockable     : false,
+        //    tdCls        : 'indicator',
+        //    falseText    : ' ',
+        //    trueText     : ' '
+        //},
+        //{
+        //    xtype     : 'gridcolumn',
+        //    dataIndex : 'key',
+        //    text      : 'Binding Key',
+        //    flex      : 1
+        //},
+        {
+            xtype     : 'templatecolumn',
+            dataIndex : 'boundTo',
+            text      : 'Bound To',
+            flex      : 1,
+            tpl       : '\\{{boundTo}\\}'
+        },
+        {
+            xtype     : 'gridcolumn',
+            dataIndex : 'value',
+            text      : 'Value',
+            flex      : 1,
+            renderer  : function (value, metaData, record, rowIndex, colIndex, store, view) {
+                var v = value;
+
+                if (value === null) {
+                    v = 'null';
+                }
+
+                if (record.data.text === 'undefined') {
+                    v = 'undefined';
+                }
+
+                return '<span class="highlight ' + record.get('type') + ' ' + v + '">' + v + '</span>';
+            }
+        }
+    ]
 
 ## <a name="Documenting_Overrides" />Documenting Overrides
 

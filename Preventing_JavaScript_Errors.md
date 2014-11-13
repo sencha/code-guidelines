@@ -68,28 +68,34 @@ its own curly braces in order to avoid confusion.
         doSomething();
     }
 
-In many cases, the use of guard clauses makes good sense as they highlight exceptions to the "default" execution path:
+In many cases, the use of [guard clauses](http://refactoring.com/catalog/replaceNestedConditionalWithGuardClauses.html) 
+makes good sense as they highlight exceptions to the "default" execution path:
 
     // bad
-    function foo() {
-        if (foobar) {
-            doSomething();
-        }
+    function getPayAmount() {
+        var result;
+    
+        if (_isDead) { result = deadAmount(); }
         else {
-            doSomethingElse();
-        }
-    }
-        
-    // good
-    function foo() {
-        if (!foobar) {
-            doSomethingElse();
-            return;
+            if (_isSeparated) { result = separatedAmount(); }
+            else {
+                if (_isRetired) { result = retiredAmount(); }
+                else { result = normalPayAmount(); }
+            };
         }
     
-        //default behavior...
-        doSomething();
-    }
+        return result;
+    };  
+    
+        
+    // good
+    function getPayAmount() {
+        if (_isDead) { return deadAmount(); }
+        if (_isSeparated) { return separatedAmount(); }
+        if (_isRetired) { return retiredAmount(); }
+    
+        return normalPayAmount();
+    };  
     
 ## <a name="Equality" />Equality
 
@@ -155,11 +161,14 @@ Instead, create utility classes/methods to implement the desired behavior:
     };
     
     // good
-    ArrayHelper = {
+    Ext.define('Ext.Array', {
+        singleton : true,
+    
         each : function(arrayToIterate, functionToCall) {
             //loop over the items in the array
         }
-    };
+    }};
+
     
 ## <a name="Functions" />Functions
 
@@ -219,7 +228,7 @@ Consider the following example:
 There are two issues caused by using an anonymous function:
 
   1. We don’t have a named reference to the click handler function, so we can’t remove it via [removeEventListener()](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget.removeEventListener)
-  2. The reference to *el* is inadvertently caught in the closure created for the inner function, and therefore 
+  2. The reference to `el` is inadvertently caught in the closure created for the inner function, and therefore 
       cannot be garbage collected. This creates a circular reference between JavaScript (the function) and the DOM (el).
 
 To avoid the first problem, always use named functions when adding event listeners to DOM elements.

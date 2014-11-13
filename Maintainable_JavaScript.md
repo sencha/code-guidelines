@@ -27,8 +27,8 @@ applications easier, because the developer knows exactly where to find their cod
 In addition, Sencha recommends using a consistent approach to naming and organizing your files. The file name should 
 match the class name defined within, and the physical file location should match the class' namespace.
 
-For example, the class *Foo.bar.Baz* might be defined in *Baz.js*. Per the full namespace, the file might be located 
-at */{www}/Foo/bar/Baz.js*.
+For example, the class `Foo.bar.Baz` might be defined in `Baz.js`. Per the full namespace, the file might be located 
+at `/{www}/Foo/bar/Baz.js`.
  
 ## <a name="Declaring_Variables" />Declaring Variables
 
@@ -50,7 +50,7 @@ function foo() {
     
 ### <a name="Declaring_Multiple_Variables" />Declaring Multiple Variables
 
-Use one *var* declaration when creating multiple variables because it is easier to read. Sencha recommends declaring 
+Use one `var` declaration when creating multiple variables because it is easier to read. Sencha recommends declaring 
 each variable assignment on a new line; declare unassigned variables last, and these can be on the same line. 
 This provides a visual cue to the person reading your code about the initial state of the variables within the current scope.
     
@@ -99,7 +99,7 @@ Finally, bracket notation can be very useful when using a variable to access obj
 
 It is also considered good practice to define default values in many cases.
 
-For simple values, you can use *||* to define default values. If the left-hand value is falsy then the right-hand 
+For simple values, you can use `||` to define default values. If the left-hand value is falsy then the right-hand 
 value will be used.
 
     function init(config) {
@@ -143,12 +143,12 @@ where the member names are arbitrary strings or names -- create an object for th
 
 Note: some cases exist where declaring a fixed-dimension array for 
 [performance reasons](http://www.slideshare.net/doris1/oscon-developing-high-performance-websites-and-modern-apps-with-javascript-and-html5faster-siteandappformeetupforoscon) 
-might make sense. In those cases it's fine to use the *new Array(length)* notation instead, but there are many 
+might make sense. In those cases it's fine to use the `new Array(length)` notation instead, but there are many 
 implications to doing so.
 
 ## <a name="Debugging_Statements" />Debugging Statements
 
-Debugging statements like *console.log()* and *debugger* should never be shipped into standard production environments. 
+Debugging statements like `console.log()` and `debugger` should never be shipped into standard production environments. 
 A better approach is to bake these statements into a service that can easily be disabled in production.
 
     // bad
@@ -159,7 +159,7 @@ A better approach is to bake these statements into a service that can easily be 
     
     // good
     function foo() {
-        //where logger() only outputs statements in development
+        // where logger() only outputs statements in development
         MyApp.util.logger('inside the foo() method');
         return true;
     }
@@ -187,7 +187,7 @@ Ternary operators are fine for clear-cut conditionals, but unacceptable for conf
 Ternary expressions should never be nested because they just add to the confusion. 
 
 **Rule of thumb:** If you are unsure whether-or-not you should be using a ternary expression, always default to 
-using an *if/else* statement instead.
+using an `if/else` statement instead.
 
 ## <a name="Regular_Expressions" />Regular Expressions
 
@@ -240,7 +240,7 @@ readability.
 ## <a name="Method_Chains" />Method Chains
 
 As Crockford discusses in *JavaScript: The Good Parts*, method chains (or "cascades" as he calls them) allow us 
-to call many methods on the same object in sequence during a single statement. These methods simply return *this* to 
+to call many methods on the same object in sequence during a single statement. These methods simply return `this` to 
 allow the chain to continue:
 
     //pseudocode
