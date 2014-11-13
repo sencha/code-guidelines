@@ -156,7 +156,7 @@ a closure. Not everyone agrees -- Christian Johansen is [a notable example](http
 but the greater point is to manage these special cases consistently throughout your codebase.
 
     Person.logger = function() {
-        var me = this; // “me” will be used consistently
+        var me = this; // "me" will be used consistently
     
     
         return function() {

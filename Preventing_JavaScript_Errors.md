@@ -45,7 +45,7 @@ to be used as a statement, which can mask some tricky errors.
     
     // bad
     var example = function() {
-        // because of the line break, ASI returns “undefined”
+        // because of the line break, ASI returns "undefined"
         return
         {
             foo: 123
@@ -72,7 +72,7 @@ Trailing commas have caused more headaches in JavaScript development over the ye
 
 Although the current ECMAScript 5 specification allows for trailing commas in Object and Array literals, older 
 browsers (particularly IE <9) encounter unexpected behavior: trailing commas in object literals would throw runtime 
-errors, while trailing commas in array literal would return inaccurate results for Array.length. 
+errors, while trailing commas in array literals would return inaccurate results for Array.length. 
 
 Therefore, as a best practice, Sencha discourages developers from using them.
 
@@ -123,7 +123,7 @@ makes good sense as they highlight exceptions to the "default" execution path:
     
 ## <a name="Equality" />Equality
 
-Always favor the === and !== operators over == and != unless you have specific reasons not to.
+Always favor the `===` and `!==` operators over `==` and `!=` unless you have specific reasons not to.
 
 By using the "strict equality operators", we can accurately compare the value and type of the variables being compared.
 
@@ -133,7 +133,7 @@ By using the "strict equality operators", we can accurately compare the value an
     // good
     var result = (0 === false); //returns FALSE
 
-The non-strict equality operators (== and !=) [will attempt to cast the operands](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Comparison_Operators) 
+The non-strict equality operators (`==` and `!=`) [will attempt to cast the operands](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Comparison_Operators) 
 into the same value type, returning truthy or falsy results which may not be expected. 
 
 The same problem exists when [comparing native types](http://javascriptweblog.wordpress.com/2011/02/07/truth-equality-and-javascript/#more-2108) 
@@ -265,7 +265,7 @@ There are two issues caused by using an anonymous function:
 
   1. We don’t have a named reference to the click handler function, so we can’t remove it via [removeEventListener()](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget.removeEventListener)
   2. The reference to `el` is inadvertently caught in the closure created for the inner function, and therefore 
-      cannot be garbage collected. This creates a circular reference between JavaScript (the function) and the DOM (el).
+      cannot be garbage collected. This creates a circular reference between JavaScript (the function) and the DOM (`el`).
 
 To avoid the first problem, always use named functions when adding event listeners to DOM elements.
 
