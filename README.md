@@ -23,8 +23,9 @@ These recommendations are based on our own experiences, as well as direct intera
 
 ##Dogma vs Doctrine
 
-Avoid obsessing about code style -- this document is merely a guide, not infallible dogma. Many others have created 
-[similar documents](Resources.md) and clearly not everyone agrees on every point. 
+Avoid obsessing about code style -- this document is merely a guide, not infallible dogma. It is not intended to be a 
+comprehensive list of all "best practices", but rather a list of the most common areas on which people ask our 
+opinions. Many others have created [similar documents](Resources.md) and clearly not everyone agrees on every point. 
 
 The overall goal for this document is to help you evaluate what we consider to be the important aspects of "quality" 
 code, and ultimately create your own readable, maintainable and scalable JavaScript projects. Our suggestions stand as 

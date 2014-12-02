@@ -93,7 +93,7 @@ its own curly braces in order to avoid confusion.
     }
 
 In many cases, the use of [guard clauses](http://refactoring.com/catalog/replaceNestedConditionalWithGuardClauses.html) 
-makes good sense as they highlight exceptions to the "default" execution path:
+makes good sense as they highlight exceptions to the "normal" execution path:
 
     // bad
     function getPayAmount() {
@@ -114,9 +114,15 @@ makes good sense as they highlight exceptions to the "default" execution path:
         
     // good
     function getPayAmount() {
-        if (_isDead) { return deadAmount(); }
-        if (_isSeparated) { return separatedAmount(); }
-        if (_isRetired) { return retiredAmount(); }
+        if (_isDead) { 
+            return deadAmount(); 
+        }
+        if (_isSeparated) { 
+            return separatedAmount(); 
+        }
+        if (_isRetired) { 
+            return retiredAmount(); 
+        }
     
         return normalPayAmount();
     };  
@@ -205,6 +211,8 @@ Instead, create utility classes/methods to implement the desired behavior:
         }
     }};
 
+Note: in some situations, polyfilling native prototypes may be acceptable to add standard behavior to older browsers. 
+For example, Ext JS 5 pollyfills `Function.bind()` in IE8.
     
 ## <a name="Functions" />Functions
 
@@ -271,18 +279,13 @@ To avoid the first problem, always use named functions when adding event listene
 
 To avoid the second problem, carefully craft your scopes to prevent leaks and promote garbage collection:
     
+    function clickHandler() {
+        this.style.backgroundColor = 'red';
+    }
+    
     function addHandler() {
-        var clickHandler = function() {
-            this.style.backgroundColor = 'red';
-        };
-    
-    
-        // the closure prevents "el" from being available 
-        // when inside clickHandler()
-        (function() {
-            var el = document.getElementById('el');
-            el.addEventListener('click', clickHandler);
-        })();
+        var el = document.getElementById('el');
+        el.addEventListener('click', clickHandler);
     }
 
 One final note: the risks exposed by the anonymous function pattern are often mitigated by following the paradigms 
