@@ -28,7 +28,7 @@ In addition, Sencha recommends using a consistent approach to naming and organiz
 match the class name defined within, and the physical file location should match the class' namespace.
 
 For example, the class `Foo.bar.Baz` might be defined in `Baz.js`. Per the full namespace, the file might be located 
-at `/{www}/Foo/bar/Baz.js`.
+at `/src/Foo/bar/Baz.js`.
  
 ## <a name="Declaring_Variables" />Declaring Variables
 
@@ -189,12 +189,20 @@ Ternary expressions should never be nested because they just add to the confusio
 **Rule of thumb:** If you are unsure whether-or-not you should be using a ternary expression, always default to 
 using an `if/else` statement instead.
 
+However, parenthesis can be very helpful to express more clearly the binding of other operators when combined with 
+ternary operators. For example:
+
+    // bad
+    var value = x || y ? z : a + b;
+
+    // good
+    var value = (x || y) ? z : (a + b);
+
 ## <a name="Regular_Expressions" />Regular Expressions
 
-> *"Have a problem and you think RegEx is the solution? Now you have 2 problems."*
+> *"Have a problem and you think RegEx is the solution? Now you have 2 problems."* (anonymous joke)
 
-Regular expressions are very powerful but extremely confusing -- therefore you need to do everything in your power 
-to keep them maintainable.
+Regular expressions are very powerful but can be confusing -- therefore keeping them maintainable is a high priority.
 
 Don't inline regular expressions; store them in a variable to improve readability and 
 [performance](http://jsperf.com/caching-regex-objects/15), and always add comments to explain their purpose.
@@ -205,6 +213,26 @@ Don't inline regular expressions; store them in a variable to improve readabilit
     // good
     var numberTest = /\d+/, //contains one or more numbers
         hasNumbers = numberTest.test(value);
+
+When it comes to performance, a better practice is to cache literal Regular Expressions in a more permanent way -- so 
+that they are not re-compiled each time a function is run.
+
+    // bad
+    function hasNumbers(value) {
+        var numberTest = /\d+/; //gets re-defined on each function call
+    
+        return numberTest.test(value);
+    }
+
+    // good
+    Ext.define('MyApp.util.RegEx', {
+        // defined only once
+        numbersRe : /\d+/,
+    
+        hasNumbers : function(value) {
+            return this.numbersRe.test(value);
+        }
+    });
 
 ## <a name="Strings" />Strings
 
@@ -247,5 +275,5 @@ allow the chain to continue:
     getElement('myDiv').width(100).height(100).color('red') // etc.
 
 Sencha urges some caution with this pattern as the lengthy method chains can turn into spaghetti code over time 
-in large codebases. In many cases, abstracting much of this behavior into a utility method 
-(then re-used in multiple places) will improve the long-term maintainability of your code.
+in large codebases, and debugging these call stacks can be very confusing. In many cases, abstracting much of this 
+behavior into a utility method (then re-used in multiple places) will improve the long-term maintainability of your code.

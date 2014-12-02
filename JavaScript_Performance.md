@@ -14,7 +14,6 @@ identified the following techniques as proven methods for improving performance:
   - [Loops](#Loops)
   - [Try \ Catch](#Try_Catch)
   - [Page Reflow](#Page_Reflow)
-  - [Modifying the DOM](#Modifying_The_DOM)
   - [Function-based Iteration](#Function_Based_Iteration)
 
 ###Application Code
@@ -82,8 +81,9 @@ A reflow involves changes that affect the CSS layout of a portion or the entire 
 the subsequent reflow of all child and ancestor elements, as well as any elements following it in the DOM.
 
 The browser will automatically keep track of DOM and CSS changes, issuing a "reflow" when it needs to change the 
-position or appearance of something. Unwieldy JavaScript code can force the browser to invalidate the CSS layout - so 
-developers must be incredibly careful to avoid causing multiple page reflows as they will cause application 
+position or appearance of something. Unwieldy JavaScript code can force the browser to invalidate the CSS layout -- for 
+example, reading certain results from the DOM (e.g. offsetHeight) can cause browser style recalculation of layout. 
+Therefore developers must be incredibly careful to avoid causing multiple page reflows as they will cause application 
 performance to noticeably lag.
 
     // bad
@@ -97,114 +97,6 @@ performance to noticeably lag.
     elementB.className = "b-style";       // CSS layout is already invalid; but no reflow yet
     var heightA = elementA.offsetHeight;  // reflow to calculate offset
     var heightB = elementB.offsetHeight;  // CSS layout is up-to-date; no second reflow!
-
-## <a name="Modifying_The_DOM" />Modifying the DOM
-
-As a rule of thumb, touch the DOM as few times as possible. 
-
-DOM changes often cause browser reflow because the browser must determine how elements should be displayed. 
-Each reflow takes time -- so the fewer times we touch the DOM, 
-[the faster our applications will be](https://developers.google.com/speed/articles/javascript-dom).
-
-### <a name="Switching_CSS" />Switching CSS Classes
-
-Editing CSS styles individually on a DOM element will cause multiple browser reflows and waste processing time. For example:
-
-    function selectAnchor(element) {
-      element.style.fontWeight = 'bold';     // reflow
-      element.style.textDecoration = 'none'; // reflow again!
-      element.style.color = '#000';          // reflow again!
-    }
-
-We can instead define all of these styles in a single CSS class, and then set the DOM element's class -- causing 
-only a single reflow:
-
-    .selectedAnchor {
-      font-weight: bold;
-      text-decoration: none;
-      color: #000;
-    }
-    
-    function selectAnchor(element) {
-      element.className = 'selectedAnchor'; // reflow only once!
-    }
-    
-### <a name="Creating_Elements_Before_Insertion" />Creating Elements Before Insertion
-
-Since we want to touch the DOM as few times as possible, it makes sense to edit those virtually before they have 
-been added to the DOM.
-
-    // bad
-    function addAnchor(parentElement, anchorText, anchorClass) {
-      var element = document.createElement('a');
-      parentElement.appendChild(element); // reflow!
-      element.innerHTML = anchorText;     // reflow again!
-      element.className = anchorClass;    // reflow again!
-    }
-    
-    // good
-    function addAnchor(parentElement, anchorText, anchorClass) {
-      var element = document.createElement('a');
-      element.innerHTML = anchorText;
-      element.className = anchorClass;
-      parentElement.appendChild(element); // reflow only once!
-    }
-
-This pattern can also be applied to multiple DOM elements using DocumentFragements:
-
-    // bad
-    function addAnchors(element) {
-      var anchor;
-      for (var i = 0; i < 10; i ++) {
-        anchor = document.createElement('a');
-        anchor.innerHTML = 'test';
-        element.appendChild(anchor); // reflow!
-      }
-    } // 10 total reflows
-    
-    // good
-    function addAnchors(element) {
-      var anchor, fragment = document.createDocumentFragment();
-      for (var i = 0; i < 10; i ++) {
-        anchor = document.createElement('a');
-        anchor.innerHTML = 'test';
-        fragment.appendChild(anchor);
-      }
-      element.appendChild(fragment); // reflow
-    } // 1 total reflow
-
-### <a name="Out_of_the_Flow_DOM_Edits" />Out-of-the-Flow DOM Edits
-
-If we need to make edits to multiple DOM elements, we may want to remove those elements from the DOM temporarily 
-to modify -- then re-insert them when we're finished to only cause a single reflow.
-
-    // bad
-    function updateAllAnchors(element, anchorClass) {
-      var anchors = element.getElementsByTagName('a');
-      for (var i = 0, length = anchors.length; i < length; i ++) {
-        anchors[i].className = anchorClass; // reflow each time!
-      }
-    }
-    
-    // good
-    function updateAllAnchors(element, anchorClass) {
-        var parent = element.parentNode,
-            sibling = element.nextSibling;
-    
-        parentNode.removeChild(element); // remove from the DOM
-    
-        var anchors = element.getElementsByTagName('a');
-        for (var i=0, length=anchors.length; i<length; i++) {
-            anchors[i].className = anchorClass;
-        }
-    
-    
-        if (sibling) {
-            parent.insertBefore(element, sibling); // reflow
-        } else {
-            parent.appendChild(element); // reflow
-        }
-    }
 
 ## <a name="Function_Based_Iteration" />Function-Based Iteration
 
