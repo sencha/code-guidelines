@@ -158,13 +158,12 @@ but the greater point is to manage these special cases consistently throughout y
     Person.logger = function() {
         var me = this; // "me" will be used consistently
     
-    
         return function() {
             console.log(me);
         };
     };
 
-Another important thing to note is that this is a keyword and can’t participate in minifying. In the Sencha frameworks, 
+Another important thing to note is that `this` is a keyword and can't be compressed. In the Sencha frameworks, 
 we abide by the rule of four: if a given scope references `this` four or more times, 
 cache `this` using the local variable `me` as it will make the minified source smaller.
 
@@ -197,7 +196,7 @@ cache `this` using the local variable `me` as it will make the minified source s
     
 ### <a name="Reserved_Words" />Reserved Words
 
-Don't use reserved words as keys as they break things in older versions of Internet Explorer. Use readable synonyms 
+Don't use reserved words as keys because they break things in older versions of Internet Explorer. Use readable synonyms 
 in place of reserved words instead.
 
     // bad

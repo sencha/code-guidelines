@@ -40,7 +40,7 @@ to be used as a statement, which can mask some tricky errors.
 
     // good
     var a = obj;
-    [a].forEach(logProp); //this works fine
+    [a].forEach(logProp); // this works fine
     
     
     // bad
@@ -149,22 +149,22 @@ in an if statement:
         return (val) ? true : false;
     }
     
-    compare({}); //evaluates to true
-    compare([]); //evaluates to true, because Array is an Object
+    compare({}); // evaluates to true
+    compare([]); // evaluates to true, because Array is an Object
     
-    compare(undefined); //evaluates to false
-    compare(null);      //evaluates to false
+    compare(undefined); // evaluates to false
+    compare(null);      // evaluates to false
     
-    compare(true);  //evaluates to true
-    compare(false); //evaluates to false
+    compare(true);  // evaluates to true
+    compare(false); // evaluates to false
     
-    compare(0);   //+0, -0 evaluate to false
-    compare(NaN); //evaluates to false
-    compare(1);   //all other positive numbers evaluate to true
-    compare(-1);  //all other negative numbers evaluate to true
+    compare(0);   // +0, -0 evaluate to false
+    compare(NaN); // evaluates to false
+    compare(1);   // all other positive numbers evaluate to true
+    compare(-1);  // all other negative numbers evaluate to true
     
-    compare('');    //empty string evaluates to false
-    compare('foo'); //all other strings evaluate to true
+    compare('');    // empty string evaluates to false
+    compare('foo'); // all other strings evaluate to true
 
 In short, you need to be very careful when testing the equality of any variables when not using the strict 
 equality operators!

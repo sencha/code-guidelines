@@ -82,7 +82,7 @@ the subsequent reflow of all child and ancestor elements, as well as any element
 
 The browser will automatically keep track of DOM and CSS changes, issuing a "reflow" when it needs to change the 
 position or appearance of something. Unwieldy JavaScript code can force the browser to invalidate the CSS layout -- for 
-example, reading certain results from the DOM (e.g. offsetHeight) cause browser style recalculation of layout. 
+example, reading certain results from the DOM (e.g. offsetHeight) can cause browser style recalculation of layout. 
 Therefore developers must be incredibly careful to avoid causing multiple page reflows as they will cause application 
 performance to noticeably lag.
 

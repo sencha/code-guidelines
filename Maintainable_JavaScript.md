@@ -202,8 +202,7 @@ ternary operators. For example:
 
 > *"Have a problem and you think RegEx is the solution? Now you have 2 problems."* (anonymous joke)
 
-Regular expressions are very powerful but can be confusing -- therefore you need to do everything in your power 
-to keep them maintainable.
+Regular expressions are very powerful but can be confusing -- therefore keeping them maintainable is a high priority.
 
 Don't inline regular expressions; store them in a variable to improve readability and 
 [performance](http://jsperf.com/caching-regex-objects/15), and always add comments to explain their purpose.
