@@ -65,6 +65,18 @@ every iteration.
     for(i=0, len=items.length; i<len; i++){
         // some code
     }
+    
+    // bad
+    var i;
+    for(i=0; i<items.getCount(); i++){
+        // some code
+    }
+    
+    // good
+    var i, len;
+    for(i=0, len=items.getCount(); i<len; i++){
+        // some code
+    }
 
 Whenever possible avoid `for/in` type of loop as they are known to [negatively impact performance](http://jsperf.com/for-in-vs-keys-vs-for). 
     
