@@ -220,7 +220,7 @@ For example, Ext JS 5 pollyfills `Function.bind()` in IE8.
 
 When defining JavaScript functions, beware of [hoisting](http://elegantcode.com/2011/03/24/basic-javascript-part-12-function-hoisting/).
 
-Function declarations are defined at parse-time (when the browser first downloads the code):
+Function declarations are evaluated at parse-time (when the browser first downloads the code):
 
     // FUNCTION DECLARATION (preferred)
     function sum(x, y) {
@@ -236,7 +236,8 @@ Because the declaration is hoisted to the top of its scope at parse-time, it doe
       return x + y;
     }
 
-Function expressions are defined at run-time (when the call stack physically hits a line of code):
+Function expressions are evaluated at run-time (when the call stack physically hits a line of code), just like any 
+other variable assignment:
 
     // FUNCTION EXPRESSION
     var sum = function(x, y) {
