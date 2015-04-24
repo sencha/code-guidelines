@@ -39,7 +39,7 @@ Sencha typically follows Crockford's advice to declare variables at the top of t
 3. variable declarations are [hoisted](http://www.adequatelygood.com/JavaScript-Scoping-and-Hoisting.html) to the top of their scope anyways
 
 ```
-function foo() {
+function foo () {
     var bar = 1; // good
     
     if (true) {
@@ -72,7 +72,7 @@ Sencha prefers to use dot notation rather than bracket notation because it is ty
 more easily compressed. 
 
     var myObject = {
-        foo : 'bar'
+        foo: 'bar'
     };
     
     // works, but not preferred
@@ -102,13 +102,13 @@ It is also considered good practice to define default values in many cases.
 For simple situations, you can use `||` to define default values. If the left-hand value is falsy then the right-hand 
 value will be used.
 
-    function init(config) {
+    function init (config) {
         this.hidden = config.hidden || false;
     }
 
 In more complex scenarios, it may make sense to use conditional expressions or utility methods to perform the validations:
 
-    function init(config) {
+    function init (config) {
         // using a conditional
         this.total = (config.count > 10) ? config.count : 10;
     
@@ -152,13 +152,13 @@ Debugging statements like `console.log()` and `debugger` should never be shipped
 A better approach is to bake these statements into a service that can easily be disabled in production.
 
     // bad
-    function foo() {
+    function foo () {
         console.log('inside the foo() method');
         return true;
     }
     
     // good
-    function foo() {
+    function foo () {
         // where logger() only outputs statements in development
         MyApp.util.logger('inside the foo() method');
         return true;
@@ -167,7 +167,7 @@ A better approach is to bake these statements into a service that can easily be 
 Sencha applications utilizing Sencha Cmd also have the ability to mark sections of code as being run only in 
 development; Sencha Cmd will then strip out these sections during the optimization process for production builds.
 
-    function foo() {
+    function foo () {
         // <debug>
         console.log('inside the foo() method');
         // </debug>
@@ -218,7 +218,7 @@ When it comes to performance, a better practice is to cache literal Regular Expr
 that they are not re-compiled each time a function is run.
 
     // bad
-    function hasNumbers(value) {
+    function hasNumbers (value) {
         var numberTest = /\d+/; //gets re-defined on each function call
     
         return numberTest.test(value);
@@ -229,7 +229,7 @@ that they are not re-compiled each time a function is run.
         // defined only once
         numbersRe : /\d+/,
     
-        hasNumbers : function(value) {
+        hasNumbers: function (value) {
             return this.numbersRe.test(value);
         }
     });
@@ -257,13 +257,9 @@ readability.
     var stringA = 'Who lives in a pineapple under the sea? ' + 
         'Sponge Bob Square Pants! ' +
         'Absorbent and yellow and porous is he!';
-    
-    // or with Array.join()
-    var stringA = [
-        'Who lives in a pineapple under the sea?',
-        'Sponge Bob Square Pants!',
-        'Absorbent and yellow and porous is he!'
-    ].join(' ');
+
+**Note**: Sencha Cmd optimizes literal string operations like the above and generates a single string literal
+in the output code.
 
 ## <a name="Method_Chains" />Method Chains
 
