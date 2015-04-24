@@ -44,7 +44,7 @@ to be used as a statement, which can mask some tricky errors.
     
     
     // bad
-    var example = function() {
+    var example = function () {
         // because of the line break, ASI returns "undefined"
         return
         {
@@ -53,7 +53,7 @@ to be used as a statement, which can mask some tricky errors.
     };
     
     // good
-    var example = function() {
+    var example = function () {
         return {
             foo: 123
         };
@@ -96,7 +96,7 @@ In many cases, the use of [guard clauses](http://refactoring.com/catalog/replace
 makes good sense as they highlight exceptions to the "normal" execution path:
 
     // bad
-    function getPayAmount() {
+    function getPayAmount () {
         var result;
     
         if (_isDead) { result = deadAmount(); }
@@ -113,7 +113,7 @@ makes good sense as they highlight exceptions to the "normal" execution path:
     
         
     // good
-    function getPayAmount() {
+    function getPayAmount () {
         if (_isDead) { 
             return deadAmount(); 
         }
@@ -145,8 +145,8 @@ into the same value type, returning truthy or falsy results which may not be exp
 The same problem exists when [comparing native types](http://javascriptweblog.wordpress.com/2011/02/07/truth-equality-and-javascript/#more-2108) 
 in an if statement:
 
-    function compare(val) {
-        return (val) ? true : false;
+    function compare (val) {
+        return val ? true : false;
     }
     
     compare({}); // evaluates to true
@@ -198,7 +198,7 @@ inevitably causing headaches and hard-to-find bugs.
 Instead, create utility classes/methods to implement the desired behavior:
 
     // bad
-    Array.prototype.each = function(functionToCall) {
+    Array.prototype.each = function (functionToCall) {
         //loop over the items in the array
     };
     
@@ -206,7 +206,7 @@ Instead, create utility classes/methods to implement the desired behavior:
     Ext.define('Ext.Array', {
         singleton : true,
     
-        each : function(arrayToIterate, functionToCall) {
+        each: function (arrayToIterate, functionToCall) {
             //loop over the items in the array
         }
     }};
@@ -223,7 +223,7 @@ When defining JavaScript functions, beware of [hoisting](http://elegantcode.com/
 Function declarations are evaluated at parse-time (when the browser first downloads the code):
 
     // FUNCTION DECLARATION (preferred)
-    function sum(x, y) {
+    function sum (x, y) {
       return x + y;
     }
 
@@ -232,7 +232,7 @@ Because the declaration is hoisted to the top of its scope at parse-time, it doe
     sum(1,2); // returns 3
     
     // FUNCTION DECLARATION (preferred)
-    function sum(x, y) {
+    function sum (x, y) {
       return x + y;
     }
 
@@ -240,7 +240,7 @@ Function expressions are evaluated at run-time (when the call stack physically h
 other variable assignment:
 
     // FUNCTION EXPRESSION
-    var sum = function(x, y) {
+    var sum = function (x, y) {
         return x + y;
     };
 
@@ -249,9 +249,12 @@ Because function expressions are NOT hoisted at parse-time, it DOES matter when 
     sum(1,2); //throws an error "undefined is not a function"
     
     // FUNCTION EXPRESSION
-    var sum = function(x, y) {
+    var sum = function (x, y) {
         return x + y;
     };
+
+Using function expressions can result in better compression because the name can be safely replaced by
+a shorter version. This is not typically done for the name in a function declaration.
     
 ### <a name="Anonymous_Functions" />Anonymous Functions
 
@@ -259,12 +262,12 @@ Anonymous functions can be very convenient, but poorly constructed code can easi
 [memory leaks](https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript#Memory_leaks). 
 Consider the following example:
 
-    function addHandler() {
+    function addHandler () {
         var el = document.getElementById('el');
     
         el.addEventListener(
             'click', 
-            function() { // anonymous function
+            function () { // anonymous function
                 el.style.backgroundColor = 'red';
             }
         );
@@ -280,11 +283,11 @@ To avoid the first problem, always use named functions when adding event listene
 
 To avoid the second problem, carefully craft your scopes to prevent leaks and promote garbage collection:
     
-    function clickHandler() {
+    function clickHandler () {
         this.style.backgroundColor = 'red';
     }
     
-    function addHandler() {
+    function addHandler () {
         var el = document.getElementById('el');
         el.addEventListener('click', clickHandler);
     }
