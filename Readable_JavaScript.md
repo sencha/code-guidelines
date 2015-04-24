@@ -37,7 +37,7 @@ Let's examine the areas in which naming conventions should be applied and how Se
 Sencha always uses *TitleCase* when creating top-level namespaces, classes, and constructors.
 
     // "MyClass" is a constructor :: new MyClass();
-    MyClass = function() {};
+    MyClass = function () {};
 
 Intermediate namespaces should be short, descriptive and lowercase.
 
@@ -53,16 +53,16 @@ Sencha always uses *camelCase* when creating functions. We also recommend the us
 naming private functions and methods that are not encapsulated by a closure.
 
     // function expression
-    var sortSomeStuff = function() {};
+    var sortSomeStuff = function () {};
     
     // function declaration
-    function findSomething() {}
+    function findSomething () {}
     
     // the same concept applies to object functions
     var someObject = {
-        objectMethod : function() {},
+        objectMethod: function () {},
     
-        _privateMethod : function() {}
+        _privateMethod: function () {}
     };
 
 Note: more information about using function expressions vs. function declarations can be found in 
@@ -88,9 +88,9 @@ leading underscore "_" when naming private properties.
     
     // object property
     var someObject = {
-        someProperty : true,
+        someProperty: true,
     
-        _privateProperty : true
+        _privateProperty: true
     };
 
 Variables should be given meaningful names, so that the intended purpose and functionality of the variables is 
@@ -144,7 +144,7 @@ has been defined.
 
     // better
     MyApp.authentication.User = {
-        id : '12345'
+        id: '12345'
     };
 
 ### <a name="Special_Cases" />Special Cases
@@ -155,10 +155,10 @@ As an internal convention, Sencha uses the name `me` when there is a need to cap
 a closure. Not everyone agrees -- Christian Johansen is [a notable example](https://gist.github.com/cjohansen/4135065) -- 
 but the greater point is to manage these special cases consistently throughout your codebase.
 
-    Person.logger = function() {
+    Person.logger = function () {
         var me = this; // "me" will be used consistently
     
-        return function() {
+        return function () {
             console.log(me);
         };
     };
@@ -168,7 +168,7 @@ we abide by the rule of four: if a given scope references `this` four or more ti
 cache `this` using the local variable `me` as it will make the minified source smaller.
 
     // bad
-    function foo() {
+    function foo () {
         this.x = 1;
         this.y = 2;
         this.z = 3;
@@ -176,7 +176,7 @@ cache `this` using the local variable `me` as it will make the minified source s
     }
      
     // good
-    function foo() {
+    function foo () {
         var me = this;
         me.x = 1;
         me.y = 2;
@@ -201,14 +201,14 @@ in place of reserved words instead.
 
     // bad
     var model = {
-        name    : 'Foo',
-        private : true // reserved word!
+        name: 'Foo',
+        private: true // reserved word!
     };
     
     // good
     var model = {
-        name   : 'Foo',
-        hidden : true
+        name: 'Foo',
+        hidden: true
     };
 
 
@@ -216,17 +216,17 @@ Note: "readable synonyms" must actually be words.
     
     // bad
     var car = {
-        class : 'Ford' // reserved word!
+        class: 'Ford' // reserved word!
     };
     
     // bad
     var car = {
-        klass : 'Ford' // PLEASE don't ever do this!
+        klass: 'Ford' // PLEASE don't ever do this!
     };
     
     // good
     var car = {
-        brand : 'Ford'
+        brand: 'Ford'
     };
     
 ## <a name="Comments_Documentation" />Comments and Documentation
@@ -246,14 +246,14 @@ comments. See the [JSDuck wiki](https://github.com/senchalabs/jsduck/wiki) for m
     /**
      * @class MyApp.foo.Bar
      */
-    MyApp.foo.Bar = function() {
+    MyApp.foo.Bar = function () {
         var baz = true;
     
         return {
             /**
              * @method
              */
-            utilityMethod : function() {
+            utilityMethod: function () {
                 return baz;
             }
         };
@@ -348,7 +348,7 @@ actively encouraged so that the changes are perfectly clear.
     Ext.define('MyApp.override.CustomNumberField', {
         override : 'Ext.form.field.Number',
      
-        initComponent: function() {
+        initComponent: function () {
             var me = this,
                 allowed;
      
@@ -379,7 +379,7 @@ four spaces in our own code because tab sizes are unpredictable; the only way we
 to enforce the use of spaces. Ultimately the goal is just to have consistency, so whatever your choice don't mix them!
     
     // bad
-    function doSomething(isTrue) {
+    function doSomething (isTrue) {
      // < 1 space in
      if (isTrue) {
         // <<< 3 spaces in?
@@ -387,7 +387,7 @@ to enforce the use of spaces. Ultimately the goal is just to have consistency, s
     }
     
     // good
-    function doSomething(isTrue) {
+    function doSomething (isTrue) {
         // <<<< 4 spaces in!
         if (isTrue) {
             // <<<< 4 spaces in again!
