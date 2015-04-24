@@ -396,6 +396,34 @@ to enforce the use of spaces. Ultimately the goal is just to have consistency, s
 
 On the other hand, Sencha also advocates for using as much white space as necessary to make your code easier to read.
 
+### Benefits of Consistency
+
+One technique Sencha recommends is to maintain spaces before the parentheses of function declarations but
+not for function calls. This allows text searches to more easily find calls to functions separately from their
+declartions.
+
+For example:
+
+    function foo () { // Note the space between "foo" and "("
+        return 42;
+    }
+    
+    var x = foo();  // Note no space between "foo" and "("
+
+Now searches for "foo(" will find only the calls to `foo`.
+
+Another technique Sencha recommends is to place no space between the name of an object property and the `:`
+(again for benefits in text search).
+
+For example:
+
+    Ext.define('Ext.panel.Panel', {
+        collapse: function () ...
+    });
+
+Searches for "collapse:" will find implementations of `collapse` and not invocations. Conversely for
+"collapse(".
+
 ## <a name="Line_Length" />Line Length
 
 Not everyone agrees with the specific limit for characters-per-line, but Sencha generally tries to limit line length. 
