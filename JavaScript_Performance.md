@@ -33,20 +33,20 @@ memory, and garbage collection cycles:
     // bad
     var objectPool = [];
     
-    for (i = 0; i < 10; i++) {
+    for (i = 0; i < 10; ++i) {
         objectPool.push({
-            foo : function() {}
+            foo: function () {}
         });
     }
     
     // good
     var objectPool = [];
     
-    function bar() {}
+    function bar () {}
     
-    for (i=0; i<10; i++) {
+    for (i = 0; i < 10; ++i) {
         objectPool.push({
-            foo : bar
+            foo: bar
         });
     }
     
@@ -56,25 +56,25 @@ every iteration.
 
     // bad
     var i;
-    for(i=0; i<items.length; i++){
+    for (i = 0; i < items.length; ++i) {
         // some code
     }
     
     // good
     var i, len;
-    for(i=0, len=items.length; i<len; i++){
+    for (i = 0, len = items.length; i < len; ++i) {
         // some code
     }
     
     // bad
     var i;
-    for(i=0; i<items.getCount(); i++){
+    for (i = 0; i < items.getCount(); ++i) {
         // some code
     }
     
     // good
     var i, len;
-    for(i=0, len=items.getCount(); i<len; i++){
+    for (i = 0, len = items.getCount(); i < len; ++i) {
         // some code
     }
 
@@ -117,19 +117,20 @@ Function-based iteration, while convenient, will always be slower than using a l
     var myArray = [ 1, 2, 3 ];
     
     // jQuery
-    $.each(myArray, function(index, value) {
+    $.each(myArray, function (index, value) {
         console.log(index + ": " + value);
     });
     
     // Ext JS 5
-    Ext.each(myArray, function(value, index) {
+    Ext.each(myArray, function (value, index) {
         console.log(index + ": " + value);
     });
     
     // BETTER PERFORMANCE!
     var len = myArray.length, 
         i, prop;
-    for (i=0; i<len; i++) {
+
+    for (i = 0; i < len; ++i) {
         console.log(i + ": " + myArray[i]);
     }
 
