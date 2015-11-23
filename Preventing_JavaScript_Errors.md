@@ -30,7 +30,7 @@ bad code from being committed to your repo.
 Automatic Semicolon Insertion (ASI) is not a feature. [Don't rely on it.](http://benalman.com/news/2013/01/advice-javascript-semicolon-haters/) 
 
 Crockford recommends putting a semicolon at the end of every simple statement because JavaScript allows any expression 
-to be used as a statement, which can mask some tricky errors.
+to be used as a statement, which can mask some tricky errors. What is worse, these errors may not be apparent in the development process but could appear in the minified production code instead, and that would make them even harder to debug.
 
     // bad
     var a = obj
@@ -72,7 +72,7 @@ Trailing commas have caused more headaches in JavaScript development over the ye
 
 Although the current ECMAScript 5 specification allows for trailing commas in Object and Array literals, older 
 browsers (particularly IE <9) encounter unexpected behavior: trailing commas in object literals would throw runtime 
-errors, while trailing commas in array literals would return inaccurate results for Array.length. 
+errors, while trailing commas in array literals would result in an extra `undefined` item at the end of the array. This would not only return inaccurate results for Array.length but also may cause runtime exceptions if your code assumes that array items are valid objects.
 
 Therefore, as a best practice, Sencha discourages developers from using them.
 
@@ -82,7 +82,7 @@ solution adequately solves the issue, and furthermore we believe it reduces the 
 ## <a name="Brackets_Blocks" />Brackets and Blocks
 
 Always use brackets when creating code blocks of any kind. Every block, even if it is only one line, needs to have 
-its own curly braces in order to avoid confusion.
+its own curly braces in order to avoid confusion and prevent the possibility of hard to track bugs that may result from the combination of braceless block with ASI which could produce some very unexpected code.
 
     // bad
     if (foobar) doSomething();
