@@ -1,145 +1,133 @@
-#Writing Readable JavaScript
+# 読みやすいJavaScriptを書く
 
-The importance of writing "readable" JavaScript simply cannot be overstated. Be kind to the others on your team, 
-and your future self, by writing code that is easy to digest.
+「読みやすい」JavaScriptを書く重要性は、単純に誇張しているのではありません。チームの他のメンバーのためだけでなく、未来の自分のためにも、簡単に概要を掴めるコードを書くようにして下さい。
 
-In his book *Facts and Fallacies of Software Engineering*, Robert Glass discusses how simply 
-"understanding the existing product" consumes roughly 30% of a developer's time. Glass frames this point within the 
-context of the software maintenance cycle -- and while we will move our discussion to maintainability soon, 
-Sencha recommends prioritizing the following points to make your codebase clear and coherent:
+著書「*Facts and Fallacies of Software Engineering*（\*）」で、著者のRobert Glassは「既存の製品の理解」に開発者の時間の約3割が消費されている点を指摘しています。Glassのこの見解はソフトウェア保守サイクルのコンテキストで述べられていますが（「保守」という観点については後ほど改めて議論します）、当社は下記の項目について、首尾一貫して明確な優先順位を付けることをお勧めします。
 
-  - [Naming Conventions](#Naming_Conventions)
-  - [Comments and Documentation](#Comments_Documentation)
-  - [Documenting Overrides](#Documenting_Overrides)
-  - [Spacing and White Space](#Spacing_White_Space)
-  - [Line Length](#Line_Length)
-  - [Block Length](#Block_Length)
-  - [File Length](#File_Length)
+  - [命名規約](#Naming_Conventions)
+  - [コメントや文書化](#Comments_Documentation)
+  - [オーバーライドの文書化](#Documenting_Overrides)
+  - [空白スペース](#Spacing_White_Space)
+  - [行の長さ](#Line_Length)
+  - [ブロックの長さ](#Block_Length)
+  - [ファイルの大きさ](#File_Length)
 
-## <a name="Naming_Conventions" />Naming Conventions
+\*訳注 ... ソフトウエア開発 55の真実と10のウソ（日経BP出版センター）
 
-> *"There are only two hard things in Computer Science: cache invalidation, naming things, and off-by-one errors."*
+## <a name="Naming_Conventions" />命名規約
 
-Many people only name a few things in their life: a pet, a child, or something particularly personal and meaningful. 
-In general, naming things is difficult because there is a perceived finality to the process 
-(e.g. you rarely re-name a pet) -- but in software development, one typically has to name things far more often 
-than the average person.
+> *"コンピュータ・サイエンスには2つの難しいものがあります。キャッシュの制御、命名規約、そして境界値のズレに関するエラー"*
 
-Software developers might name thousands of new things per year: variables, classes, applications, etc. Each name 
-attempts to capture the essence or purpose of the concept being named -- but because programs use more names than 
-can be reasonably remembered, the names must be conceived consistently in order to help others understand, fix, 
-and extend that same code months or years later. This idea is often referred to as "self-documenting code".
+ほとんどの人は人生において幾つかのものにしか名前を付けるという行為を行いません: ペット、子供、または個人的に特別な意味を持った何か。
 
-Let's examine the areas in which naming conventions should be applied and how Sencha handles each case.
+一般的に、名前付けは一度決めると最後まで使われるため、難しい作業だと言えます（例えば、ペットの名前を付け直すことはめったにないでしょう）。しかし、ソフトウェアの開発において、開発者は平均的な人々よりも多くの名前付けをすることになります。
 
-### <a name="Namespaces" />Namespaces, Classes, and Constructors
+ソフトウェア開発者は恐らく年に数千の名前を付けることになるでしょう（変数、クラス、アプリケーション等）。それらの名前は、その名前が付けられた目的やコンセプトを示そうとするでしょう。しかしプログラムでは、覚えやすいように名付けられたものだけでなく、たくさんの名前を使うことになります。そのため名前は、他の人が数ヶ月から数年に渡って理解し、修正し、拡張できるよう、分かり易い状態に保たなければなりません。この考え方はしばしば「self-documenting code（自己文書化コード）」と呼ばれます。
 
-Sencha always uses *TitleCase* when creating top-level namespaces, classes, and constructors.
+それでは、命名規約を適用した方がよい箇所と、当社がどのようにそれらを扱っているかについて解説します。
 
-    // "MyClass" is a constructor :: new MyClass();
+### <a name="Namespaces" />名前空間、クラス、コンストラクタ
+
+当社では、最上位の名前空間、クラス、コンストラクタに命名する際は、いつも「タイトル・ケース」を利用しています。
+
+    // "MyClass" はコンストラクタ :: new MyClass();
     MyClass = function () {};
 
-Intermediate namespaces should be short, descriptive and lowercase.
+中間の名前空間は短くした方が良く、説明的な内容で小文字にします。
 
-    // "Foo" as the top-level namespace
-    // "bar" as an intermediate-level namespace
-    // "Baz" as the class name
+    // "Foo" は最上位の名前空間
+    // "bar" は中間レベルの名前空間
+    // "Baz" はクラス名
     Foo.bar.Baz = {};
     Ext.data.reader.Json = {};
 
-### <a name="Functions" />Functions
+### <a name="Functions" />関数
 
-Sencha always uses *camelCase* when creating functions. We also recommend the use a leading underscore "_" when 
-naming private functions and methods that are not encapsulated by a closure.
+当社では関数を定義する際は、常に「キャメル・ケース」を利用します。また、クロージャでカプセル化されていないプライベートな関数を命名する際は、先頭にアンダースコア "\_" を付けることをお奨めします。
 
-    // function expression
+    // 関数式
     var sortSomeStuff = function () {};
-    
-    // function declaration
+
+    // 関数宣言
     function findSomething () {}
-    
-    // the same concept applies to object functions
+
+    // オブジェクトの関数についても同様の考え方を適用します
     var someObject = {
         objectMethod: function () {},
-    
+
         _privateMethod: function () {}
     };
 
-Note: more information about using function expressions vs. function declarations can be found in 
-section [Functions](Preventing_JavaScript_Errors.md#Functions).
+注: [関数](Preventing_JavaScript_Errors.md#Functions) で、関数式と関数宣言の使用についての詳しい情報を記載しています。
 
-### <a name="Local_Vars" />Local Variables and Object Properties
+### <a name="Local_Vars" />ローカル変数とオブジェクトのプロパティ
 
-Always use `var` to declare local variables -- not doing so will result in the creation of global variables, and we want 
-to avoid polluting the global namespace. See the [Constants and Global Variables](#Constants_Global_Vars) section below 
-for more details.
+ローカル変数を宣言する際は、常に「var」キーワードを使います。そうしないと、グローバル変数を作成することになり、汚染されたグローバルの変数を避ける必要が出てきます。この問題の詳細は [定数とグローバル変数](#Constants_Global_Vars) のセクションを参照下さい。
 
-    // bad
+    // 悪い例
     foo = true;
-    
-    // good
+
+    // 良い例
     var foo = true;
 
-Sencha always uses *camelCase* when creating local variables and object properties. We also recommend the use a 
-leading underscore "_" when naming private properties.
+当社では、ローカル変数とオブジェクトのプロパティを作成する際は、常に「キャメルケース」を利用しています。また、オブジェクトにプライベートなプロパティを名付ける場合は、先頭にアンダースコア「\_」を付与することをお奨めします。
 
-    // local variable
+    // ローカル変数
     var fooBar = true;
-    
-    // object property
+
+    // オブジェクトのプロパティ
     var someObject = {
         someProperty: true,
-    
+
         _privateProperty: true
     };
 
-Variables should be given meaningful names, so that the intended purpose and functionality of the variables is 
-clear (while also concise). Avoid single letter names; the lone exception to this rule would be an iterator.
+変数は、その目的や機能を明確にするため、意味のある名前を付ける必要があります。（もちろん完結であることも必要です）
+一文字だけの名前は避けましょう。とはいえ、イテレータの変数はその例外にはなります。
 
-    // bad, too short. Not descriptive and easy to confuse with number "1"
+    // 悪い例。短過ぎです。説明的ではないですし、数字の1とも誤解しそうです。
     var l = group.length;
-    
-    // bad, variable name is unnecessarily long
+
+    // 良くない例。変数名が必要以上に長い。
     var mainClassConfigVariableSectionOneRefreshInterval = 5000;
-    
-    // good, variable name is concise yet still meaningful
+
+    // 良い例です。名前は完結で、ちゃんと意味も取れます。
     var len = group.length;
-    
-    // iterators are an exception
+
+    // イテレータについては、例外。
     var i;
     for (i = 0; i < len; i++) {}
 
-Use one `var` declaration when creating multiple variables because it is easier to read. Sencha recommends 
-declaring each variable assignment on a new line; declare unassigned variables last, though these can be on the 
-same line. 
+複数の変数を定義する際は、一つだけの「var」宣言を利用しましょう。その方が読み易いですから。当社では、一行ごとに一つの変数を定義する方法を推奨しています。
+また、値を代入しない変数は最後にします。代入のない変数を複数宣言する場合については、一行で済ますこともありますが。
 
-This helps to provide a visual cue to the person reading your code about the initial state of the variables 
-within the current scope.
+この方法は、現在のスコープで変数の初期状態がどうなっているのか視覚的に示すことができます。
 
-    // bad
+    // 悪い例
     var foo = 1;
     var bar = 2;
     var baz;
     var fuz;
-    
-    // good
+
+    // 良い例
     var foo = 1,
         bar = 2,
         baz, fuz;
-        
-### <a name="Constants_Global_Vars" />Constants and Global Variables
 
-Sencha recommends using *CONSTANT_CASE* when creating global variables because of the clear visual 
-indication that the variable is special.
+### <a name="Constants_Global_Vars" />定数とグローバル変数
 
-    // bad
+当社はグローバル変数と定数を宣言する際は、「CONSTANT_CASE」の利用を推奨します。そうすることで、この変数は特別なものであることを視覚的に明確にできます。
+
+    // 悪い例
     userID = '12345';
-    
-    // good
+
+    // 良い例
     USER_ID = '12345';
 
-Having said that, Sencha prefers to avoid global variables and constants altogether. We feel that enterprise 
-applications benefit from using properly-namespaced classes instead because it's always clear where a value 
+とは言いつつも、当社はグローバル変数も定数も全く利用しないようにしています。特にエンタープライズ・アプリケーションでは、名前空間を利用したクラスを利用した方が
+
+Having said that, Sencha prefers to avoid global variables and constants altogether. We feel that enterprise
+applications benefit from using properly-namespaced classes instead because it's always clear where a value
 has been defined.
 
     // better
@@ -149,22 +137,22 @@ has been defined.
 
 ### <a name="Special_Cases" />Special Cases
 
-Other special cases also exist -- for example, naming references to `this`. 
+Other special cases also exist -- for example, naming references to `this`.
 
-As an internal convention, Sencha uses the name `me` when there is a need to capture a reference to `this` within 
-a closure. Not everyone agrees -- Christian Johansen is [a notable example](https://gist.github.com/cjohansen/4135065) -- 
+As an internal convention, Sencha uses the name `me` when there is a need to capture a reference to `this` within
+a closure. Not everyone agrees -- Christian Johansen is [a notable example](https://gist.github.com/cjohansen/4135065) --
 but the greater point is to manage these special cases consistently throughout your codebase.
 
     Person.logger = function () {
         var me = this; // "me" will be used consistently
-    
+
         return function () {
             console.log(me);
         };
     };
 
-Another important thing to note is that `this` is a keyword and can't be compressed. In the Sencha frameworks, 
-we abide by the rule of four: if a given scope references `this` four or more times, 
+Another important thing to note is that `this` is a keyword and can't be compressed. In the Sencha frameworks,
+we abide by the rule of four: if a given scope references `this` four or more times,
 cache `this` using the local variable `me` as it will make the minified source smaller.
 
     // bad
@@ -174,7 +162,7 @@ cache `this` using the local variable `me` as it will make the minified source s
         this.z = 3;
         this.u = 4;
     }
-     
+
     // good
     function foo () {
         var me = this;
@@ -183,20 +171,20 @@ cache `this` using the local variable `me` as it will make the minified source s
         me.z = 3;
         me.u = 4;
     }
-    
+
     // comparison of minified output
     function f(){this.x=1;this.y=2;this.z=3}
     function f(){var e=this;e.x=1;e.y=2;e.z=3}
-    
+
     function f(){this.x=1;this.y=2;this.z=3;this.u=4;}
     function f(){var e=this;e.x=1;e.y=2;e.z=3;e.u=4;} // 4 is now shorter!
-    
+
     function f(){this.x=1;this.y=2;this.z=3;this.u=4;this.v=5;}
     function f(){var e=this;e.x=1;e.y=2;e.z=3;e.u=4;e.v=5;}
-    
+
 ### <a name="Reserved_Words" />Reserved Words
 
-Don't use reserved words as keys because they break things in older versions of Internet Explorer. Use readable synonyms 
+Don't use reserved words as keys because they break things in older versions of Internet Explorer. Use readable synonyms
 in place of reserved words instead.
 
     // bad
@@ -204,7 +192,7 @@ in place of reserved words instead.
         name: 'Foo',
         private: true // reserved word!
     };
-    
+
     // good
     var model = {
         name: 'Foo',
@@ -213,42 +201,42 @@ in place of reserved words instead.
 
 
 Note: "readable synonyms" must actually be words.
-    
+
     // bad
     var car = {
         class: 'Ford' // reserved word!
     };
-    
+
     // bad
     var car = {
         klass: 'Ford' // PLEASE don't ever do this!
     };
-    
+
     // good
     var car = {
         brand: 'Ford'
     };
-    
+
 ## <a name="Comments_Documentation" />Comments and Documentation
 
-Generally speaking, good code is supposed to be self-explanatory. However comments play two vital roles in promoting 
+Generally speaking, good code is supposed to be self-explanatory. However comments play two vital roles in promoting
 readable code: documentation, and intent (via inline comments).
 
 ### <a name="Documentation" />Documentation
 
-System-wide documentation is vital to developing large codebases. Using tools like 
-[JSDuck](https://github.com/senchalabs/jsduck) it is easy to build an API 
+System-wide documentation is vital to developing large codebases. Using tools like
+[JSDuck](https://github.com/senchalabs/jsduck) it is easy to build an API
 reference for your codebase, making it significantly easier for your team (and others) to digest.
 
-[Sencha](http://docs.sencha.com/extjs/5.0/apidocs/) uses JSDuck internally, which follows the JavaDoc style for block 
+[Sencha](http://docs.sencha.com/extjs/5.0/apidocs/) uses JSDuck internally, which follows the JavaDoc style for block
 comments. See the [JSDuck wiki](https://github.com/senchalabs/jsduck/wiki) for more information.
-    
+
     /**
      * @class MyApp.foo.Bar
      */
     MyApp.foo.Bar = function () {
         var baz = true;
-    
+
         return {
             /**
              * @method
@@ -261,9 +249,9 @@ comments. See the [JSDuck wiki](https://github.com/senchalabs/jsduck/wiki) for m
 
 ### <a name="Inline_Comments" />Inline Comments
 
-Many developers feel that code ought to be "self-documenting" and therefore inline comments are to be avoided. 
-Sencha doesn't necessarily agree with the rigidness of that mindset; we believe that comments should always be 
-added when the intent or purpose of any code isn't completely explicit, but the code itself ought to be clear 
+Many developers feel that code ought to be "self-documenting" and therefore inline comments are to be avoided.
+Sencha doesn't necessarily agree with the rigidness of that mindset; we believe that comments should always be
+added when the intent or purpose of any code isn't completely explicit, but the code itself ought to be clear
 enough to follow logically.
 
     // In a majority of cases, the controller ID will be the same as the name.
@@ -341,22 +329,22 @@ Commenting out entire blocks of code should be generally avoided because they se
 
 ## <a name="Documenting_Overrides" />Documenting Overrides
 
-In cases where you need to override default or inherited functionality, both inline and block comments are 
+In cases where you need to override default or inherited functionality, both inline and block comments are
 actively encouraged so that the changes are perfectly clear.
 
     // OVERRIDE for bug EXTJS-12345
     Ext.define('MyApp.override.CustomNumberField', {
         override : 'Ext.form.field.Number',
-     
+
         initComponent: function () {
             var me = this,
                 allowed;
-     
+
             me.callParent();
-     
+
             me.setMinValue(me.minValue);
             me.setMaxValue(me.maxValue);
-     
+
             // Build regexes for masking and stripping based on the configured options
             if (me.disableKeyFilter !== true) {
                 allowed = me.baseChars + '';
@@ -368,16 +356,16 @@ actively encouraged so that the changes are perfectly clear.
             }
         }
     });
-    
+
 This documentation will often come in handy during an upgrade process. For example, the bug EXTJS-12345 might have
 been fixed in the latest version -- so this override could be removed completely.
 
 ## <a name="Spacing_White_Space" />Spacing and White Space
 
-Many developers have strong opinions on the topic of tabs-vs-spaces for spacing. Sencha advocates the use of 
-four spaces in our own code because tab sizes are unpredictable; the only way we can guarantee readable code is 
+Many developers have strong opinions on the topic of tabs-vs-spaces for spacing. Sencha advocates the use of
+four spaces in our own code because tab sizes are unpredictable; the only way we can guarantee readable code is
 to enforce the use of spaces. Ultimately the goal is just to have consistency, so whatever your choice don't mix them!
-    
+
     // bad
     function doSomething (isTrue) {
      // < 1 space in
@@ -385,7 +373,7 @@ to enforce the use of spaces. Ultimately the goal is just to have consistency, s
         // <<< 3 spaces in?
     }// now you're just being confusing...
     }
-    
+
     // good
     function doSomething (isTrue) {
         // <<<< 4 spaces in!
@@ -407,7 +395,7 @@ For example:
     function foo () { // Note the space between "foo" and "("
         return 42;
     }
-    
+
     var x = foo();  // Note no space between "foo" and "("
 
 Now searches for "foo(" will find only the calls to `foo`.
@@ -426,8 +414,8 @@ Searches for "collapse:" will find implementations of `collapse` and not invocat
 
 ## <a name="Line_Length" />Line Length
 
-Not everyone agrees with the specific limit for characters-per-line, but Sencha generally tries to limit line length. 
-This limit can be arbitrary (e.g. 80 or 100 characters) and not rigidly enforced, but the goal is to reduce the amount 
+Not everyone agrees with the specific limit for characters-per-line, but Sencha generally tries to limit line length.
+This limit can be arbitrary (e.g. 80 or 100 characters) and not rigidly enforced, but the goal is to reduce the amount
 of horizontal scrolling for the developer.
 
 Strings longer than the decided limit should be written across multiple lines using string concatenation.
@@ -436,14 +424,14 @@ Strings longer than the decided limit should be written across multiple lines us
 
 How long can a method or code block get before you consider breaking functionality into smaller utility methods?
 
-A good rule-of-thumb is to limit the length of method and code blocks (e.g. 50 or 100 lines) so that they are not 
-trying to do too much. Shorter methods are easier to test, and smaller sections of code are more quickly 
+A good rule-of-thumb is to limit the length of method and code blocks (e.g. 50 or 100 lines) so that they are not
+trying to do too much. Shorter methods are easier to test, and smaller sections of code are more quickly
 comprehended by developers.
 
 ## <a name="File_Length" />File Length
 
 How long should a file be before you consider breaking functionality into mixins, modules or other utility classes?
 
-As with method/block length, comments can easily impact the length of a file. Abstract classes might also be longer 
-than usual because they define interfaces and baseline functionality. Nevertheless, defining an arbitrary file 
+As with method/block length, comments can easily impact the length of a file. Abstract classes might also be longer
+than usual because they define interfaces and baseline functionality. Nevertheless, defining an arbitrary file
 length (e.g. 500 or 1000 lines) might give you an indication of whether-or-not a class might need to be refactored.
