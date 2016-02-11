@@ -21,7 +21,7 @@ Sencha は、大きなコードベースを保守することに長期の不一�
   - [三項演算子](#Ternary_Operators)
   - [正規表現式](#Regular_Expressions)
   - [文字列](#Strings)
-  - [メソッド チェーン](#Method_Chains)
+  - [メソッドチェーン](#Method_Chains)
 
 ## <a name="One_Class_Per_File" />ファイル毎に一つのクラス
 
@@ -267,7 +267,7 @@ Sencha Cmd は、製品版ビルドでの最適化の際にこの部分を排除
 
 **注**: Sencha Cmdでは、上記のような文字の結合を、一つの文字列に変換することで、出力するコードを最適化しています。
 
-## <a name="Method_Chains" />Method Chains
+## <a name="Method_Chains" />メソッドチェーン
 
 クロックフォードが *JavaScript: The Good Parts* で論じたように、メソッドチェーン (または彼が呼ぶように「カスケード」) を使うと、一つの命令で同じオブジェクトの多くのメソッドを順番に呼び出すことができます。
 これらのメソッドは単純に `this` を返すことでチェーンを継続できます。　
