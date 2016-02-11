@@ -1,9 +1,9 @@
-#Resources
+# 学習リソース
 
-The original inspiration for this guide comes from the [fantastic guide](https://github.com/airbnb/javascript) 
-put together by Airbnb.
+このガイドはAirbnbの[この素晴らしいガイド](https://github.com/airbnb/javascript)からインスピレーションを得ています。ぜひそちらもご一読下さい。
 
-In addition to the many inline links our document contains, we strongly recommend you take a look at the following resources:
+本ドキュメントの各所に埋め込んだリンクのページに加えて、下記のページもご覧頂くことを強くお奨めいたします
+。
 
   - [Code Conventions for the JavaScript Programming Language](http://javascript.crockford.com/code.html) from Douglass Crockford
   - [Google JavaScript Style Guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml) from Google
@@ -11,10 +11,9 @@ In addition to the many inline links our document contains, we strongly recommen
   - [A JavaScript Quality Guide](https://github.com/bevacqua/js) from Nicolas Bevacqua
   - [Compiler-Friendly Code Guidelines](http://docs.sencha.com/cmd/5.x/cmd_compiler.html) from Sencha
 
+また、下記の書籍も非常にお奨めです。ぜひご拝読下さい。
 
-We would also strongly encourage you to read the following books:
-
-  - _JavaScript: The Good Parts_ by Douglass Crockford
-  - _Test Driven JavaScript Development_ by Christian Johansen
-  - _Secrets of the JavaScript Ninja_ by John Resig
-  - _Maintainable JavaScript_ by Nicholas Zakas
+  - [JavaScript: The Good Parts](http://) by Douglass Crockford
+  - [テスト駆動JavaScript](http://) by Christian Johansen
+  - [JavaScript Ninjaの秘密](http://) by John Resig
+  - [Maintainable JavaScript](http://) by Nicholas Zakas

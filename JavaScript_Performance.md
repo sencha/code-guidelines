@@ -1,139 +1,133 @@
-#Keeping an Eye on Performance
+#パフォーマンスに気を配りましょう
 
-> *"Performance is only a problem if performance is a problem."*
+> *「パフォーマンスに問題があるときは、パフォーマンスだけが問題である」*
 
-Every developer should care about performance -- but developers also shouldn't spend time optimizing minute sections 
-of code without first proving such efficiencies are necessary. For example, optimizations that make sense in a 
-JavaScript library/framework may have little impact in application code.
+開発者なら皆パフォーマンスに気を遣っています -- しかし、開発者はまた、
+まずその効率化が必要だということを証明せずにコードの細かな部分を最適化することに時間を費やすことはやめましょう。
+例えば、JavaScriptライブラリやフレームワークで意味がある最適化も、アプリケーションコードではあまり効果がないかもしれません。
 
-Given our experience building the Ext JS and Touch frameworks and our exposure to customer applications, Sencha has 
-identified the following techniques as proven methods for improving performance:
+Ext JSやSencha Touchフレームワークを構築した経験と、顧客のアプリケーションへの我々の情報提供を考えると、Sencha はパフォーマンスを改善するためには、次のテクニックを折り紙付きの方法として確認します。
 
-###Library or Framework Code
+###ライブラリまたはフレームワークコード
 
-  - [Loops](#Loops)
+  - [ループ](#Loops)
   - [Try \ Catch](#Try_Catch)
-  - [Page Reflow](#Page_Reflow)
-  - [Function-based Iteration](#Function_Based_Iteration)
+  - [ページのリフロー](#Page_Reflow)
+  - [関数ベースのイテレーション](#Function_Based_Iteration)
 
-###Application Code
+###アプリケーションコード
 
-The Yahoo team put together a document of [exceptional performance techniques](https://developer.yahoo.com/performance/) 
-that is so thorough it’s hard to add anything.
+Yahooチームはそこに何も加えようがないほどの[卓越したパフォーマンス技術](https://developer.yahoo.com/performance/)をまとめました。
 
-Nevertheless, Sencha applications should utilize Sencha Cmd as part of their build process in order to compress the 
-code to the smallest possible size. Be sure to follow 
-our [Compiler-Friendly Code Guidelines](http://docs.sencha.com/cmd/5.x/cmd_compiler.html)!
+ですが、Senchaアプリケーションは、できる限り小さなサイズへコードを圧縮するために、ビルドプロセスの一部としてSencha Cmdを用いています。[Compiler-Friendly Code Guidelines](http://docs.sencha.com/cmd/5.x/cmd_compiler.html)
+を参照してください。
 
-## <a name="Loops" />Loops
 
-Don't declare functions (and for that matter, other re-usable things) inside of loops. It wastes processing time, 
-memory, and garbage collection cycles:
+## <a name="Loops" />ループ
 
-    // bad
+ループの内側で、関数 (これに関しては他の再利用可能なもの) を宣言してはいけません。
+これにより、処理時間、メモリ、ガーベージコレクションのサイクルを無駄遣いします。
+
+    // 悪い
     var objectPool = [];
-    
+
     for (i = 0; i < 10; ++i) {
         objectPool.push({
             foo: function () {}
         });
     }
-    
-    // good
+
+    // 良い
     var objectPool = [];
-    
-    function bar () {}
-    
+
+    function bar() {}
+
     for (i = 0; i < 10; ++i) {
         objectPool.push({
             foo: bar
         });
     }
-    
-    
-Calculate array length only once upfront and assign its value to a variable. This will prevent measuring it for 
-every iteration.
 
-    // bad
+配列の長さの計算は、先頭で一度だけ行いその値を変数に格納します。
+これにより、ループの各ステップで再計測することを防ぎます。
+
+    // 悪い
     var i;
-    for (i = 0; i < items.length; ++i) {
-        // some code
-    }
-    
-    // good
-    var i, len;
-    for (i = 0, len = items.length; i < len; ++i) {
-        // some code
-    }
-    
-    // bad
-    var i;
-    for (i = 0; i < items.getCount(); ++i) {
-        // some code
-    }
-    
-    // good
-    var i, len;
-    for (i = 0, len = items.getCount(); i < len; ++i) {
+    for(i = 0; i < items.length; ++i){
         // some code
     }
 
-Whenever possible avoid `for/in` type of loop as they are known to [negatively impact performance](http://jsperf.com/for-in-vs-keys-vs-for). 
-    
+    // 良い
+    var i, len;
+    for(i = 0, len = items.length; i < len; ++i){
+        // some code
+    }
+
+    // 悪い
+    var i;
+    for(i = 0; i < items.getCount(); ++i){
+        // some code
+    }
+
+    // 良い
+    var i, len;
+    for(i = 0, len = items.getCount(); i < len; ++i){
+        // some code
+    }
+
+`for/in` 形式のループには、[パフォーマンスに悪影響がある](http://jsperf.com/for-in-vs-keys-vs-for)ことが知られていますので、使わないようにしましょう。
 
 ## <a name="Try_Catch" />Try \ Catch
 
-Avoid try/catch statements when possible as [they cause significant drags on performance](http://jsperf.com/try-catch-in-loop-cost/5).
+[パフォーマンスに重大な影響を引き起こすので](http://jsperf.com/try-catch-in-loop-cost/5)
+できることなら `try/catch` ステートメントは使わないようにしましょう。
 
-## <a name="Page_Reflow" />Page Reflow
+## <a name="Page_Reflow" />ページ リフロー
 
-Avoid patterns that cause [unnecessary page reflows](http://www.kellegous.com/j/2013/01/26/layout-performance/). 
+[不必要なページ リフロー](http://www.kellegous.com/j/2013/01/26/layout-performance/)
+を起こすパターンを避けましょう。
 
-A reflow involves changes that affect the CSS layout of a portion or the entire HTML page. Reflow of an element causes 
-the subsequent reflow of all child and ancestor elements, as well as any elements following it in the DOM.
+リフローは、一部または全てのHTMLページのCSSレイアウトに影響を及ぼす変化が起こります。
+エレメントのリフローは、それに引き続いて、すべての子要素と祖先要素に加え、DOM内でそれに続く全ての要素に以降のリフローを引き起こします。
 
-The browser will automatically keep track of DOM and CSS changes, issuing a "reflow" when it needs to change the 
-position or appearance of something. Unwieldy JavaScript code can force the browser to invalidate the CSS layout -- for 
-example, reading certain results from the DOM (e.g. offsetHeight) can cause browser style recalculation of layout. 
-Therefore developers must be incredibly careful to avoid causing multiple page reflows as they will cause application 
-performance to noticeably lag.
+ブラウザーは自動的にDOMやCSSの変化を経過を追いかけ、何かの位置や外観を変える必要があるときに「リフロー」を発行します。
+やっかいなJavaScriptコードではブラウザーに強制的にCSSレイアウトを無効にすることができます -- たとえば、DOMから特定の結果（例えばoffsetHeight）を読むとブラウザー・スタイルのレイアウトの再計算を引き起こすことがあります。
+ですから、開発者は、複数のページリフローが起こらないように、非常に注意しなければなりません。
 
-    // bad
-    elementA.className = "a-style";       // style change invalidates the CSS layout
-    var heightA = elementA.offsetHeight;  // reflow to calculate offset
-    elementB.className = "b-style";       // invalidates the CSS layout again
-    var heightB = elementB.offsetHeight;  // reflow to calculate offset
-    
-    // good
-    elementA.className = "a-style";       // style change invalidates the CSS layout
-    elementB.className = "b-style";       // CSS layout is already invalid; but no reflow yet
-    var heightA = elementA.offsetHeight;  // reflow to calculate offset
-    var heightB = elementB.offsetHeight;  // CSS layout is up-to-date; no second reflow!
+    // 悪い
+    elementA.className = "a-style";       // スタイルの変更はCSSレイアウトを無効にします
+    var heightA = elementA.offsetHeight;  // オフセットを計算するためにリフローが起こります
+    elementB.className = "b-style";       // CSSレイアウトが再び無効になります
+    var heightB = elementB.offsetHeight;  // オフセットを計算するためにリフローが起こります
 
-## <a name="Function_Based_Iteration" />Function-Based Iteration
+    // 良い
+    elementA.className = "a-style";       // スタイルの変更はCSSレイアウトを無効にします
+    elementB.className = "b-style";       // CSSレイアウトはすでに無効ですがまだリフローしません
+    var heightA = elementA.offsetHeight;  // オフセットを計算するためにリフローが起こります
+    var heightB = elementB.offsetHeight;  // CSSレイアウトが更新され、二度目のリフローは起こりません
 
-Function-based iteration, while convenient, will always be slower than using a loop. 
+## <a name="Function_Based_Iteration" />関数ベースのイテレーション
+
+関数ベースのイテレーションは便利ですが、ループを使うよりも常に遅くなります。
 
     var myArray = [ 1, 2, 3 ];
-    
+
     // jQuery
     $.each(myArray, function (index, value) {
         console.log(index + ": " + value);
     });
-    
+
     // Ext JS 5
     Ext.each(myArray, function (value, index) {
         console.log(index + ": " + value);
     });
-    
-    // BETTER PERFORMANCE!
-    var len = myArray.length, 
-        i, prop;
 
+    // パフォーマンスは上です!
+    var len = myArray.length,
+        i, prop;
     for (i = 0; i < len; ++i) {
         console.log(i + ": " + myArray[i]);
     }
 
-Every function invocation creates a new execution context (scope chain). Function calls and returns require state 
-preservation and restoration, as well as garbage collection -- while iteration simply jumps to another point in 
-the existing context.
+関数の宣言は、新しい実行コンテクスト（スコープチェーン）を生成します。
+関数を呼び出して戻り値を取得すると、状態の維持と回復だけでなく、ガーベージコレクションも必要になります -- 一方、イテレーションでは単純に既存のコンテクストの他の場所にジャンプするだけです。

@@ -1,275 +1,281 @@
-#Writing Maintainable JavaScript
+#保守性の高い JavaScript を書く
 
-In his book *Facts and Fallacies of Software Engineering*, Robert Glass discusses how as much as 80% of the total cost 
-of software over its lifetime comes from maintenance tasks. This isn't just fixing bugs; in most cases, "maintenance" 
-actually involves adding new functionality to existing applications. 
+ロバート グラスは、その著書
+*Facts and Fallacies of Software Engineering*
+ (訳注: 邦題「ソフトウエア開発 55の真実と10のウソ」)
+において、ソフトウェアのライフタイムを通じてのトータルコストの 80%が保守に費やされると述べています。
 
-The implications here are clear: if developers spend the vast majority of their time maintaining applications, 
-then the code should always be written to make that process easier.
+その生涯の上のソフトウェアの総経費の80%もどのようにメンテナンス作業から来るかについて、ロバートGlassは議論する。
+それは、バグ修正だけではなく、
+多くの場合「保守」とは新しい機能を既存のアプリケーションに加えることが実際に必要となります。
 
-Sencha recommends prioritizing the following points to help reduce the long-term friction involved in maintaining 
-a large codebase:
+この意味は明白です。
+開発者がアプリケーションの保守に多くの時間を費やすのなら、常にコードはそのプロセスを簡単にするように書かれるべきであるということです。
 
-  - [One Class Per File](#One_Class_Per_File)
-  - [Declaring Variables](#Declaring_Variables)
-  - [Array Literals](#Array_Literals)
-  - [Debugging Statements](#Debugging_Statements)
-  - [Ternary Operators](#Ternary_Operators)
-  - [Regular Expressions](#Regular_Expressions)
-  - [Strings](#Strings)
-  - [Method Chains](#Method_Chains)
+Sencha は、大きなコードベースを保守することに長期の不一致を軽減するために、次のポイントを優先させることを推奨します。
 
-## <a name="One_Class_Per_File" />One Class Per File
+  - [ファイル毎に一つのクラス](#One_Class_Per_File)
+  - [変数の宣言](#Declaring_Variables)
+  - [配列リテラル](#Array_Literals)
+  - [デバッグ ステートメント](#Debugging_Statements)
+  - [三項演算子](#Ternary_Operators)
+  - [正規表現式](#Regular_Expressions)
+  - [文字列](#Strings)
+  - [メソッドチェーン](#Method_Chains)
 
-Sencha strongly encourages the practice of coding only one class per file. Doing so makes maintaining and debugging 
-applications easier, because the developer knows exactly where to find their code.
+## <a name="One_Class_Per_File" />ファイル毎に一つのクラス
 
-In addition, Sencha recommends using a consistent approach to naming and organizing your files. The file name should 
-match the class name defined within, and the physical file location should match the class' namespace.
+Senchaは、ファイル毎に一つのクラスだけをコード化する習慣を強く推奨します。
+そうすると、開発者がどこでコードを見つけのか正確にわかることになるので、アプリケーションを保守、デバッグすることのがより簡単になります。
+完全な名前空間につき、ファイルは『/src/Foo/バー/Baz.js』に位置するかもしれない。
 
-For example, the class `Foo.bar.Baz` might be defined in `Baz.js`. Per the full namespace, the file might be located 
-at `/src/Foo/bar/Baz.js`.
- 
-## <a name="Declaring_Variables" />Declaring Variables
+さらに Sencha は、あなたのファイルに名前をつけ管理する一貫したアプローチを使うことを推奨します。
 
-Sencha typically follows Crockford's advice to declare variables at the top of their scope because:
+ファイル名は定義されるクラス名にマッチし、実際のファイル場所はクラスの名前空間にマッチするようにします。
 
-1. finding variable declarations becomes easier
-2. it makes the scope of the variables clear (as JavaScript does not have block scope)
-3. variable declarations are [hoisted](http://www.adequatelygood.com/JavaScript-Scoping-and-Hoisting.html) to the top of their scope anyways
+たとえば、クラス `Foo.bar.Baz` は、`Baz.js` で定義します。
+完全な名前空間でいくと、このファイルは
+`/src/Foo/bar/Baz.js`.
+に配置されます。
+
+## <a name="Declaring_Variables" />変数の宣言
+
+Sencha は一般的に、変数の宣言はそのスコープの先頭で宣言するというクロックフォードのアドバイスに従います。なぜなら、
+
+1. 変数の宣言を見つけるのが簡単になる
+2. 変数のスコープが明白である (JavaScript にはブロックスコープはないので)
+3. いずれにせよ変数の宣言は、
+スコープの先頭に[巻き上げ](http://www.adequatelygood.com/JavaScript-Scoping-and-Hoisting.html)られます。
 
 ```
 function foo () {
-    var bar = 1; // good
-    
+    var bar = 1; // 良い
+
     if (true) {
-        var baz = 2; // bad; "baz" should be declared above
+        var baz = 2; // 悪い; "baz" は前に宣言しましょう
     }
 }
 ```
-    
-### <a name="Declaring_Multiple_Variables" />Declaring Multiple Variables
 
-Use one `var` declaration when creating multiple variables because it is easier to read. Sencha recommends declaring 
-each variable assignment on a new line; declare unassigned variables last, and these can be on the same line. 
-This provides a visual cue to the person reading your code about the initial state of the variables within the current scope.
-    
-    // bad
+### <a name="Declaring_Multiple_Variables" />複数の変数の宣言
+
+複数の変数を生成する時には一つの `var ` 宣言を使います。それは読みやすいからです。
+Sencha は各変数の割り当てを新しい行で宣言することを推奨します。
+値を割り当てない変数は最後に、同じ行に書きます。
+現在のスコープでのその変数の初期状態についてコードを読んでいる人にとって、しかくてきなヒントを提供します。
+
+    // 悪い
     var foo = 1;
     var bar = 2;
     var baz;
     var fuz;
-    
-    // good
+
+    // 良い
     var foo = 1,
         bar = 2,
         baz, fuz;
 
-### <a name="Declaring_Object_Properties" />Object Properties
+### <a name="Declaring_Object_Properties" />オブジェクトのプロパティ
 
-When [accessing object properties](http://stackoverflow.com/questions/4968406/javascript-property-access-dot-notation-vs-brackets), 
-Sencha prefers to use dot notation rather than bracket notation because it is typically easier to read and is 
-more easily compressed. 
+[オブジェクトのプロパティにアクセス](http://stackoverflow.com/questions/4968406/javascript-property-access-dot-notation-vs-brackets)する際、Sencha は、ブラケット記述よりもドット記述を使うことを選びます。その方が一般的に読みやすくより簡単に圧縮できるからです。
 
     var myObject = {
         foo: 'bar'
     };
-    
-    // works, but not preferred
+
+    // 動作するが、好ましくない
     myObject['foo'];
-    
-    // preferred
+
+    // 好ましい
     myObject.foo;
-    
-It should be noted that bracket notation does allow you to declare properties with characters that can't be used 
-in dot notation.
 
-    myObject['~foo'] = true; // works just fine
-    myObject.~foo = true; // will throw an error
+ブラケット表記によってドット表記で使うことができない文字でプロパティを宣言することができる点に留意してください。
 
-While Crockford and others recommend against bracket notation, the takeaway here is to be as consistent in your 
-code as possible.
+    myObject['~foo'] = true; // うまく動作します
+    myObject.~foo = true; // エラーが発生します
 
-Finally, bracket notation can be very useful when using a variable to access object properties:
+クロックフォードなどはブラケット表記を推奨しますが、できるだけコード内で一貫しているようにしましょう。
+
+最後に、ブラケット記法は、オブジェクトのプロパティに変数を使ってアクセスするときに非常に便利です。
 
     var prop = 'foo';
     alert(myObject[prop]);
 
-### <a name="Default_Values" />Default Values
+### <a name="Default_Values" />デフォルト値
 
-It is also considered good practice to define default values in many cases.
+また、多くの場合、デフォルト値を定義することはよい方法であると考えられます。
 
-For simple situations, you can use `||` to define default values. If the left-hand value is falsy then the right-hand 
-value will be used.
+単純なシチュエーションでは、`||` を使ってデフォルト値を設定できます。
+左側の値が falsy だった場合、右側の値が使われます。
 
     function init (config) {
         this.hidden = config.hidden || false;
     }
 
-In more complex scenarios, it may make sense to use conditional expressions or utility methods to perform the validations:
+より複雑なシチュエーションでは、バリデーションを実行する、条件式やユーティリティ メソッドを使うのがいいでしょう。
 
     function init (config) {
-        // using a conditional
+        // 条件分岐を使う
         this.total = (config.count > 10) ? config.count : 10;
-    
-        // using a utility method 
-        // to copy all properties from config but also provide default values
+
+        // コンフィグから全てのプロパティをコピーし
+        // デフォルト値を設定するユーティリティ メソッドを使う
         Ext.apply(this, config, {
             hidden : false
         });
     }
-    
-## <a name="Array_Literals" />Array Literals
 
-In most cases, you should create new arrays by using the square bracketed notation:
+## <a name="Array_Literals" />配列リテラル
 
-    // bad
+ほとんどの場合、新たに配列を生成する場合は、大括弧記法を使います。
+
+    // 悪い
     var stuff = new Array();
-    
-    // good
+
+    // 良い
     var stuff = [];
 
-Use arrays when the member names will be sequential integers; do not create associative arrays (i.e. dictionaries) 
-where the member names are arbitrary strings or names -- create an object for those cases instead.
+メンバーが連続した整数であるときに配列を使います。
+メンバー名が、任意の文字列や名前である連想配列 (つまり、ディクショナリ) は作ってはいけません。
+この場合にはかわりにオブジェクトを生成しましょう。
 
-    // bad
+    // 悪い
     var stuff = [];
     stuff['foo'] = 'bar';
     stuff[0]; // undefined!
-    
-    // good
+
+    // 良い
     var stuff = [ 'bar' ];
     stuff[0]; // 'bar'
 
-Note: some cases exist where declaring a fixed-dimension array for 
-[performance reasons](http://www.slideshare.net/doris1/oscon-developing-high-performance-websites-and-modern-apps-with-javascript-and-html5faster-siteandappformeetupforoscon) 
-might make sense. In those cases it's fine to use the `new Array(length)` notation instead, but there are many 
-implications to doing so.
+ある場合には、
+[パフォーマンスの理由で](http://www.slideshare.net/doris1/oscon-developing-high-performance-websites-and-modern-apps-with-javascript-and-html5faster-siteandappformeetupforoscon)
+次元を固定した宣言がよい場合があります。
 
-## <a name="Debugging_Statements" />Debugging Statements
+この場合には、`new Array(length)` 表記を代わりに使いますが、これには多くの影響があります。
 
-Debugging statements like `console.log()` and `debugger` should never be shipped into standard production environments. 
-A better approach is to bake these statements into a service that can easily be disabled in production.
+## <a name="Debugging_Statements" />デバッグ ステートメント
 
-    // bad
+`console.log()` や `debugger` などのデバッグ ステートメントは、決して標準の製品環境にいれて出荷してはなりません。
+
+よりよいアプローチは、簡単に無効にできるようにこれらのサービスを焼くことです。
+
+    // 悪い
     function foo () {
         console.log('inside the foo() method');
         return true;
     }
-    
-    // good
+
+    // 良い
     function foo () {
-        // where logger() only outputs statements in development
+        // logger() は開発環境でのみステートメントを出力する
         MyApp.util.logger('inside the foo() method');
         return true;
     }
 
-Sencha applications utilizing Sencha Cmd also have the ability to mark sections of code as being run only in 
-development; Sencha Cmd will then strip out these sections during the optimization process for production builds.
+Sencha Cmd を使っている Sencha アプリケーションでは、コードの一部が開発時のみに動作するようにする機能があります。
+Sencha Cmd は、製品版ビルドでの最適化の際にこの部分を排除します。
 
-    function foo () {
+    function foo() {
         // <debug>
         console.log('inside the foo() method');
         // </debug>
         return true;
     }
-    
-## <a name="Ternary_Operators" />Ternary Operators
 
-Ternary operators are fine for clear-cut conditionals, but unacceptable for confusing choices. 
+## <a name="Ternary_Operators" />三項演算子
 
-    // bad
+三項演算子は、明確な条件では良いが、複雑な条件では使わない方が良い。
+
+    // 悪い
     var value = a && b ? 11 : a ? 10 : b ? 1 : 0;
-    
-    // good
+
+    // 良い
     var value = isSimple ? 11 : 1;
 
-Ternary expressions should never be nested because they just add to the confusion. 
+三項演算子はネストしてはいけません。それは単に混乱を招くだけだからです。
 
-**Rule of thumb:** If you are unsure whether-or-not you should be using a ternary expression, always default to 
-using an `if/else` statement instead.
+**経験則:**
+三項演算子を使うかどうか自信が持てない場合は、デフォルトでは `if/else` 構文を使うようにしましょう。
 
-However, parenthesis can be very helpful to express more clearly the binding of other operators when combined with 
-ternary operators. For example:
+しかし、三項演算子において、式に括弧を使うと、他の演算子との関連がはっきりします。
+例えば、
 
-    // bad
+    // 悪い
     var value = x || y ? z : a + b;
 
-    // good
+    // 良い
     var value = (x || y) ? z : (a + b);
 
-## <a name="Regular_Expressions" />Regular Expressions
+## <a name="Regular_Expressions" />正規表現式
 
-> *"Have a problem and you think RegEx is the solution? Now you have 2 problems."* (anonymous joke)
+> *"問題があってその解決に RegEx を使う? それは二つ目の問題を抱えることだ。"* (詠み人知らず)
 
-Regular expressions are very powerful but can be confusing -- therefore keeping them maintainable is a high priority.
+正規表現式は非常にパワフルですが、混乱の元になり得ます -- ですからそれらの保守性を高めることの優先度は高くなります。
 
-Don't inline regular expressions; store them in a variable to improve readability and 
-[performance](http://jsperf.com/caching-regex-objects/15), and always add comments to explain their purpose.
+正規表現式をインラインで使ってはいけません。読みやすさと[パフォーマンス](http://jsperf.com/caching-regex-objects/15)のためにいったん変数に保存し、つねにその用途を説明するコメントを書きましょう。
 
-    // bad
+    // 悪い
     var hasNumbers = /\d+/.test(value);
-    
-    // good
-    var numberTest = /\d+/, //contains one or more numbers
+
+    // 良い
+    var numberTest = /\d+/, //一つ以上の数字が含まれる
         hasNumbers = numberTest.test(value);
 
-When it comes to performance, a better practice is to cache literal Regular Expressions in a more permanent way -- so 
-that they are not re-compiled each time a function is run.
+パフォーマンスに関しては、正規表現式のリテラルをより永続的な方法にキャッシュすることです。
+そうすると、関数が実行される度に再コンパイルされません。
 
-    // bad
+    // 悪い
     function hasNumbers (value) {
-        var numberTest = /\d+/; //gets re-defined on each function call
-    
+        var numberTest = /\d+/; //関数が呼び出される度に再定義される
+
         return numberTest.test(value);
     }
 
-    // good
+    // 良い
     Ext.define('MyApp.util.RegEx', {
-        // defined only once
-        numbersRe : /\d+/,
-    
+        // 一度だけ定義される
+        numbersRe: /\d+/,
+
         hasNumbers: function (value) {
             return this.numbersRe.test(value);
         }
     });
 
-## <a name="Strings" />Strings
+## <a name="Strings" />文字列
 
-Pick a consistent approach to defining strings: single or double quotes. This will make the code easier to read 
-and easier to search.
+文字列に定義における、シングル クオート／ダブル クォートに一貫したアプローチを取りましょう。
+そうするとコードが読みやすく、検索しやすくなります。
 
-    // bad
-    var stringA = 'A', // single quotes
-        stringB = "B"; // double quotes
-    
-    // good
+    // 悪い
+    var stringA = 'A', // シングル クォート
+        stringB = "B"; // ダブル クォート
+
+    // 良い
     var stringA = 'A',
         stringB = 'B';
 
-Sometimes a string must be broken across several lines if it’s too long (e.g. >80 characters)  to simply improve 
-readability.
+時に、文字列が長すぎる (例えば 80文字以上になる) 場合に、読みやすくするためだけにそれをいくつかの行に分割しなければならないことがあります。
 
-    // bad
+    // 悪い
     var stringA = 'Who lives in a pineapple under the sea? Sponge Bob Square Pants! Absorbent and yellow and porous is he!';
-    
-    // good
-    var stringA = 'Who lives in a pineapple under the sea? ' + 
+
+    // 良い
+    var stringA = 'Who lives in a pineapple under the sea? ' +
         'Sponge Bob Square Pants! ' +
         'Absorbent and yellow and porous is he!';
 
-**Note**: Sencha Cmd optimizes literal string operations like the above and generates a single string literal
-in the output code.
+**注**: Sencha Cmdでは、上記のような文字の結合を、一つの文字列に変換することで、出力するコードを最適化しています。
 
-## <a name="Method_Chains" />Method Chains
+## <a name="Method_Chains" />メソッドチェーン
 
-As Crockford discusses in *JavaScript: The Good Parts*, method chains (or "cascades" as he calls them) allow us 
-to call many methods on the same object in sequence during a single statement. These methods simply return `this` to 
-allow the chain to continue:
+クロックフォードが *JavaScript: The Good Parts* で論じたように、メソッドチェーン (または彼が呼ぶように「カスケード」) を使うと、一つの命令で同じオブジェクトの多くのメソッドを順番に呼び出すことができます。
+これらのメソッドは単純に `this` を返すことでチェーンを継続できます。　
 
-    //pseudocode
-    getElement('myDiv').width(100).height(100).color('red') // etc.
+    // 擬似コード
+    getElement('myDiv').width(100).height(100).color('red') // のような
 
-Sencha urges some caution with this pattern as the lengthy method chains can turn into spaghetti code over time 
-in large codebases, and debugging these call stacks can be very confusing. In many cases, abstracting much of this 
-behavior into a utility method (then re-used in multiple places) will improve the long-term maintainability of your code.
+Sencha はこのパターンについてはいくつかの注意を喚起します。
+メソッドチェーンの長さが、大きなコードベースの中で時間と共にスパゲッティコードに変わることがあり、これらのコールスタックをデバッグする際には非常に混乱することがあります。
+
+多くの場合は、この振る舞いの多くをユーティリティ メソッドの中に抽象化する (そして複数の場所で再利用する) ことで、コードの長期間の保守性を改善することができます。

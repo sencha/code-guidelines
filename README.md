@@ -1,44 +1,41 @@
-#Sencha's Guide to JavaScript Style and Best Practices
 
-The following document contains a series of best practices and recommendations for building enterprise web applications 
-with JavaScript and HTML5. 
+# SenchaのJavaScriptスタイルガイド&ベストプラクティス
 
-Much of this advice is used internally at Sencha and certainly applies to building applications with the Sencha 
-frameworks -- but this JavaScript style guide can also help teams building applications with any framework, or 
-even just vanilla JavaScript.
+この文書は、JavaScriptとHTML5を利用してエンタープライズWebアプリケーションを開発する際のベストプラクティスや推奨事項をまとめたものです。
 
-##Mission Statement
+本文書のアドバイスは実際に当社（Sencha）の社内で使われているものです。Senchaフレームワークの構築に使われているスタイルガイドではありますが、他のフレームワークを利用している開発チームであっても有用だと考えています。もちろん、Vanilla JavaScriptの場合（\*）であっても変わりません。
 
-Sencha firmly believes that high quality JavaScript is above all else consistent, and addresses four main pillars:
+\*訳注 ... フレームワークを使わずにJavaScriptのコードを書くことを`Vanilla JavaScript`と呼びます。
 
-  - **Readability:** JavaScript code should be clear and easy to understand at first glance
-  - **Maintainability:** JavaScript code should be consistent and cohesive
-  - **Error Prevention:** JavaScript code should strategically avoid common problems
-  - **Performance:** JavaScript code should always consider faster implementations
+## ミッションステートメント
 
-This style guide will attempt to provide some ground rules for building enterprise web applications with JavaScript and 
-HTML5, and as such is intended primarily for medium-to-large development teams. 
+高品質なJavaScriptは何よりも一貫性があり、次の4つの柱によって支えられているものであると固く信じています。
 
-These recommendations are based on our own experiences, as well as direct interaction with our enterprise customers.
+  - **可読性:** 明確で、一目で理解できること
+  - **保守性:** 一貫性があり、まとまっていること
+  - **例外の回避:** よくある問題を戦略的に避けていること
+  - **パフォーマンス:** 常により速い実装を考慮していること
 
-##Dogma vs Doctrine
+このスタイルガイドは、JavaScriptとHTML5を利用してエンタープライズWebアプリケーションを構築するための、いくつかの基本原則を提供します。そして、主に中規模から大規模の開発チームを想定しています。
 
-Avoid obsessing about code style -- this document is merely a guide, not infallible dogma. It is not intended to be a 
-comprehensive list of all "best practices", but rather a list of the most common areas on which people ask our 
-opinions. Many others have created [similar documents](Resources.md) and clearly not everyone agrees on every point. 
+本文書の推奨は私たち自身の経験だけでなく、当社のお客様との対話も元にしています。
 
-The overall goal for this document is to help you evaluate what we consider to be the important aspects of "quality" 
-code, and ultimately create your own readable, maintainable and scalable JavaScript projects. Our suggestions stand as 
-a baseline from which your teams should implement your own strategy for building a high quality JavaScript codebase. 
+## 教義か方針か
 
-#Outline
+このスタイルガイドについて、必要以上に気にし過ぎないようにして下さい -- この文書は単なるガイドで、絶対に守らなければならない教義ではありません。
 
-To best articulate Sencha's experience building both frameworks and enterprise applications, we will divide this 
-discussion into four parts:
+本ガイドは「ベストプラクティス」についての網羅的な一覧を目指していません。それよりも、皆さんがよく私たちに質問される関心事について答えようとしています。 それらについては、他の多くの方も [似たような文書](Resources.md) を既に作成されており、全体で明らかな同意が取れていないトピックかと存じます。
 
-  1. [Readability](Readable_JavaScript.md)
-  2. [Maintainability](Maintainable_JavaScript.md)
-  3. [Preventing Errors](Preventing_JavaScript_Errors.md)
-  4. [Performance](JavaScript_Performance.md)
+この文書の全体的な目標は、コードの「品質」について私たちが重要だと考えている事柄をあなたが検討する手助けを行うことです。そして最終的には、あなたが読みやすく、保守しやすく、拡張性の高いプロジェクトを作成することを目指しています。 私たちの提案は、高品質なJavaScriptのコードベースを構築する戦略を組み立てる際の、開発チームが考慮すべきベースラインだと考えて頂ければ幸いです。
 
-It is worth noting that many of the points we will cover might fit into more than one of these pillars. 
+# 概要
+
+当社でのフレームワークとエンタープライズ・アプリケーションを構築した経験から、この議論については、次の4つの部分に分割させて頂きます。
+
+1. [可読性](Readable_JavaScript.md)
+2. [保守性](Maintainable_JavaScript.md)
+3. [例外の回避](Preventing_JavaScript_Errors.md)
+4. [パフォーマンス](JavaScript_Performance.md)
+
+
+これら以上に多くの内容についてカバーすることは、あまり価値がないと思われます。
