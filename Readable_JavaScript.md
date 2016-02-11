@@ -195,17 +195,17 @@
 
     // 悪い
     var car = {
-        class : 'Ford' // 予約語
+        class: 'Ford' // 予約語
     };
 
     // 悪い
     var car = {
-        klass : 'Ford' // お願い。二度とこんなことしないで
+        klass: 'Ford' // お願い。二度とこんなことしないで
     };
 
     // 良い
     var car = {
-        brand : 'Ford'
+        brand: 'Ford'
     };
 
 ## <a name="Comments_Documentation" />コメントと文書化
@@ -348,7 +348,7 @@
 多くの開発者には、スペースをあける時のタブとスペースの話題に関する断固たる意見があるものです。 タブのサイズは予測できないので、Sencha は自身のコードでは 4つのスペースを利用することにしています。 読みやすいコードを保証することができる唯一の方法は、スペースの利用を実施することです。 最終的な目的は一貫性があることだけなので、どちらを選ぼうともそれらを交ぜてはいけません。
 
     // 悪い
-    function doSomething(isTrue) {
+    function doSomething (isTrue) {
      // < 1つのスペース
      if (isTrue) {
         // <<< 3 つのスペース
@@ -356,7 +356,7 @@
     }
 
     // 良い
-    function doSomething(isTrue) {
+    function doSomething (isTrue) {
         // <<<< 4 つのスペース
         if (isTrue) {
             // <<<< 4 ここでも 4つのスペース
@@ -365,33 +365,31 @@
 
 一方、Senchaも、読みやすいコードを作るのに必要なホワイトスペースを使うことを推奨します。
 
-### Benefits of Consistency
+### 一貫性の利点
 
-One technique Sencha recommends is to maintain spaces before the parentheses of function declarations but
-not for function calls. This allows text searches to more easily find calls to functions separately from their
-declartions.
+Senchaが推奨するひとつの技法は、関数宣言の括弧の前にはスペースを空け、実行する時にはスペースを空けないことです。
+そうすることで、テキスト検索で関数宣言とは分けて、関数を実行している箇所を簡単に探せるようになります。
 
-For example:
+下記はその例です:
 
-    function foo () { // Note the space between "foo" and "("
+    function foo () { // "foo" と "(" の間にスペースがあります
         return 42;
     }
 
-    var x = foo();  // Note no space between "foo" and "("
+    var x = foo();  // "foo" と "(" の間にスペースがありません
 
-Now searches for "foo(" will find only the calls to `foo`.
+このようにすることで、"foo(" と検索すると、'foo'関数を実行している箇所だけを見つけることができます。
 
-Another technique Sencha recommends is to place no space between the name of an object property and the `:`
-(again for benefits in text search).
+Senchaが推奨するその他の技法は、オブジェクトのプロパティ名と `:` の間でスペースを空けないことです。
+（これもまた、テキスト検索で利点があります）
 
-For example:
+下記はその例です:
 
     Ext.define('Ext.panel.Panel', {
         collapse: function () ...
     });
 
-Searches for "collapse:" will find implementations of `collapse` and not invocations. Conversely for
-"collapse(".
+"collapse:" を検索すると、呼び出し以外の`collapse`の実装を探すことができます。逆に、"collapse(" で呼び出しを探せます。
 
 ## <a name="Line_Length" />行の長さ
 

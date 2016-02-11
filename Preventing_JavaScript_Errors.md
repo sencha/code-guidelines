@@ -30,7 +30,7 @@ IDE 統合は、エラーについてだけ開発者に警告します。
 [これに頼らないようにしましょう。](http://benalman.com/news/2013/01/advice-javascript-semicolon-haters/)
 
 クロックフォードは、単純なものであっても全ての命令の最後にはセミコロンをつけることを推奨しています。
-そうするとあらゆる式が命令として使われ、トリッキーなエラーから守られるるからです。
+そうするとあらゆる式が命令として使われ、トリッキーなエラーから守られるからです。さらに悪いことに、これらのエラーは開発時には問題がないかも知れませんが、出荷用に圧縮したコードで問題が起こることがあり、その場合は、さらにデバッグは困難になるでしょう。
 
     // 悪い
     var a = obj
@@ -44,7 +44,7 @@ IDE 統合は、エラーについてだけ開発者に警告します。
 
 
     // 悪い
-    var example = function() {
+    var example = function () {
         // 行が変わったので、"undefined" が返されます
         return
         {
@@ -53,7 +53,7 @@ IDE 統合は、エラーについてだけ開発者に警告します。
     };
 
     // 良い
-    var example = function() {
+    var example = function () {
         return {
             foo: 123
         };
@@ -70,9 +70,7 @@ IDE 統合は、エラーについてだけ開発者に警告します。
 
     var myArray = [ 1, 2, 3, ]; // 末尾のカンマ
 
-現在の ECMAScript 5 仕様では、オブジェクト リテラルや配列リテラルでの末尾のカンマを許可していますが、古いブラウザー (特に IE 9より前) では、予期しない挙動に出会います。オブジェクトでの末尾のカンマはランタイムエラーになり、配列リテラルの末尾のカンマは、Array.length の戻り値が不正確な値になります。
-従って、ベストプラクティスとしては、Sencha では開発者にこれらを使うことを禁じています。
-
+現在の ECMAScript 5 仕様では、オブジェクトリテラルや配列リテラルでの末尾のカンマを許可していますが、古いブラウザー (特に IE 9より前) では、予期しない挙動に出会います。オブジェクトでの末尾のカンマはランタイムエラーになり、配列リテラルの末尾のカンマは、Array.length の戻り値が不正確な値になり、配列の項目が有効な値だと想定される場合でもランタイムエラーになることがあります。従って、ベストプラクティスとしては、Sencha では開発者にこれらを使うことを禁じています。
 
 これに関連して、開発者の中にはこの問題を回避するために、カンマを先頭につけることをします。
 Sencha はその解決法が問題を適切に解決するとは思えません。コードの読みやすさを下げるものだと信じています。
@@ -80,7 +78,7 @@ Sencha はその解決法が問題を適切に解決するとは思えません�
 ## <a name="Brackets_Blocks" />中括弧とブロック
 
 どんな種類のコードブロックを作る時でも常に中括弧を使います。
-全てのブロック、たとえそれが 1行だったとしても、混乱を避けるために中括弧で囲むべきです。
+全てのブロック、たとえそれが1行だったとしても、混乱や予想外の動きが実行される可能性を避け、またASI（\*）と括弧なしブロックの組み合わせに起因する複雑なバグをデバッグする苦労を回避するためにも、中括弧で囲むべきです。
 
     // 悪い
     if (foobar) doSomething();
@@ -90,12 +88,14 @@ Sencha はその解決法が問題を適切に解決するとは思えません�
         doSomething();
     }
 
+\*訳注 ... 自動セミコロン挿入（Automatic Semicolon Insertion）の略。
+
 多くの場合に、
 [ガード条件](http://refactoring.com/catalog/replaceNestedConditionalWithGuardClauses.html)
 を使うことは、「通常の」実行パスへの例外を強調できるので、よい方法です。
 
     // 悪い
-    function getPayAmount() {
+    function getPayAmount () {
         var result;
 
         if (_isDead) { result = deadAmount(); }
@@ -144,8 +144,8 @@ Sencha はその解決法が問題を適切に解決するとは思えません�
 
 同じ問題が、if ステートメントの中で[ネイティブの型を比較する](http://javascriptweblog.wordpress.com/2011/02/07/truth-equality-and-javascript/#more-2108) 際にも存在します。
 
-    function compare(val) {
-        return (val) ? true : false;
+    function compare (val) {
+        return val ? true : false;
     }
 
     compare({}); // true となる
@@ -198,15 +198,15 @@ JavaScript はプロトタイプベースの言語です -- すべてのオブ�
 代わりに、お望みの動作を実装するためのユーティリティクラスやメソッドを生成します。
 
     // 悪い
-    Array.prototype.each = function(functionToCall) {
+    Array.prototype.each = function (functionToCall) {
         //配列の要素をループする
     };
 
     // 良い
     Ext.define('Ext.Array', {
-        singleton : true,
+        singleton: true,
 
-        each : function(arrayToIterate, functionToCall) {
+        each: function(arrayToIterate, functionToCall) {
             //配列の要素をループする
         }
     }};
@@ -223,7 +223,7 @@ JavaScript の関数を定義する際には、[巻き上げ](http://elegantcode
 関数定義は、パース時 (ブラウザが最初にコードをダウンロードした際) に評価されます。
 
     // 関数宣言 (好ましい)
-    function sum(x, y) {
+    function sum (x, y) {
       return x + y;
     }
 
@@ -232,14 +232,14 @@ JavaScript の関数を定義する際には、[巻き上げ](http://elegantcode
     sum(1,2); // 3 を返す
 
     // 関数宣言 (好ましい)
-    function sum(x, y) {
+    function sum (x, y) {
       return x + y;
     }
 
 関数式は、他の変数の割り当てと同様、実行時 (コールスタックが実際にコードのその行に来たとき) に評価されます。
 
     // 関数式
-    var sum = function(x, y) {
+    var sum = function (x, y) {
         return x + y;
     };
 
@@ -248,16 +248,19 @@ JavaScript の関数を定義する際には、[巻き上げ](http://elegantcode
     sum(1,2); //"undefined is not a function" エラーが発生する
 
     // 関数式
-    var sum = function(x, y) {
+    var sum = function (x, y) {
         return x + y;
     };
+
+関数式の利用は、変数名を短いものに安全に置き換えることができるため、より良い圧縮に繋がります。
+これは、関数宣言の名前だけに典型的に適用される動きではありません。
 
 ### <a name="Anonymous_Functions" />無名関数
 
 無名関数はとても便利ですが、貧弱な構成のコードでは、簡単に[メモリリーク](https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript#Memory_leaks)を引き起こします。
 次のサンプルを検討してください。
 
-    function addHandler() {
+    function addHandler () {
         var el = document.getElementById('el');
 
         el.addEventListener(
@@ -279,11 +282,11 @@ JavaScript の関数を定義する際には、[巻き上げ](http://elegantcode
 
 二つ目の問題を除去するには、メモリリークを避け、ガーベージコレクションをさせることです。
 
-    function clickHandler() {
+    function clickHandler () {
         this.style.backgroundColor = 'red';
     }
 
-    function addHandler() {
+    function addHandler () {
         var el = document.getElementById('el');
         el.addEventListener('click', clickHandler);
     }

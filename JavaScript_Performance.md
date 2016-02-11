@@ -31,13 +31,12 @@ Yahoo チームはそこに何も加えようがないほどの[卓越したパ�
 ループの内側で、関数 (これに関しては他の再利用可能なもの) を宣言してはいけません。
 これにより、処理時間、メモリ、ガーベージコレクションのサイクルを無駄遣いします。
 
-
     // 悪い
     var objectPool = [];
 
-    for (i = 0; i < 10; i++) {
+    for (i = 0; i < 10; ++i) {
         objectPool.push({
-            foo : function() {}
+            foo: function () {}
         });
     }
 
@@ -46,38 +45,36 @@ Yahoo チームはそこに何も加えようがないほどの[卓越したパ�
 
     function bar() {}
 
-    for (i=0; i<10; i++) {
+    for (i = 0; i < 10; ++i) {
         objectPool.push({
-            foo : bar
+            foo: bar
         });
     }
-
 
 配列の長さの計算は、先頭で一度だけ行いその値を変数に格納します。
 これにより、ループの各ステップで再計測することを防ぎます。
 
-
     // 悪い
     var i;
-    for(i=0; i<items.length; i++){
+    for(i = 0; i < items.length; ++i){
         // some code
     }
 
     // 良い
     var i, len;
-    for(i=0, len=items.length; i<len; i++){
+    for(i = 0, len = items.length; i < len; ++i){
         // some code
     }
 
     // 悪い
     var i;
-    for(i=0; i<items.getCount(); i++){
+    for(i = 0; i < items.getCount(); ++i){
         // some code
     }
 
     // 良い
     var i, len;
-    for(i=0, len=items.getCount(); i<len; i++){
+    for(i = 0, len = items.getCount(); i < len; ++i){
         // some code
     }
 
@@ -119,19 +116,19 @@ Yahoo チームはそこに何も加えようがないほどの[卓越したパ�
     var myArray = [ 1, 2, 3 ];
 
     // jQuery
-    $.each(myArray, function(index, value) {
+    $.each(myArray, function (index, value) {
         console.log(index + ": " + value);
     });
 
     // Ext JS 5
-    Ext.each(myArray, function(value, index) {
+    Ext.each(myArray, function (value, index) {
         console.log(index + ": " + value);
     });
 
     // パフォーマンスは上です!
     var len = myArray.length,
         i, prop;
-    for (i=0; i<len; i++) {
+    for (i = 0; i < len; ++i) {
         console.log(i + ": " + myArray[i]);
     }
 

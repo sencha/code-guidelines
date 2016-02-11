@@ -48,7 +48,7 @@ Sencha は一般的に、変数の宣言はそのスコープの先頭で宣言�
 スコープの先頭に[巻き上げ](http://www.adequatelygood.com/JavaScript-Scoping-and-Hoisting.html)られます。
 
 ```
-function foo() {
+function foo () {
     var bar = 1; // 良い
 
     if (true) {
@@ -80,7 +80,7 @@ Sencha は各変数の割り当てを新しい行で宣言することを推奨�
 [オブジェクトのプロパティにアクセス](http://stackoverflow.com/questions/4968406/javascript-property-access-dot-notation-vs-brackets)する際、Sencha は、ブラケット記述よりもドット記述を使うことを選びます。その方が一般的に読みやすくより簡単に圧縮できるからです。
 
     var myObject = {
-        foo : 'bar'
+        foo: 'bar'
     };
 
     // 動作するが、好ましくない
@@ -108,13 +108,13 @@ Sencha は各変数の割り当てを新しい行で宣言することを推奨�
 単純なシチュエーションでは、`||` を使ってデフォルト値を設定できます。
 左側の値が falsy だった場合、右側の値が使われます。
 
-    function init(config) {
+    function init (config) {
         this.hidden = config.hidden || false;
     }
 
 より複雑なシチュエーションでは、バリデーションを実行する、条件式やユーティリティ メソッドを使うのがいいでしょう。
 
-    function init(config) {
+    function init (config) {
         // 条件分岐を使う
         this.total = (config.count > 10) ? config.count : 10;
 
@@ -161,13 +161,13 @@ Sencha は各変数の割り当てを新しい行で宣言することを推奨�
 よりよいアプローチは、簡単に無効にできるようにこれらのサービスを焼くことです。
 
     // 悪い
-    function foo() {
+    function foo () {
         console.log('inside the foo() method');
         return true;
     }
 
     // 良い
-    function foo() {
+    function foo () {
         // logger() は開発環境でのみステートメントを出力する
         MyApp.util.logger('inside the foo() method');
         return true;
@@ -226,7 +226,7 @@ Sencha Cmd は、製品版ビルドでの最適化の際にこの部分を排除
 そうすると、関数が実行される度に再コンパイルされません。
 
     // 悪い
-    function hasNumbers(value) {
+    function hasNumbers (value) {
         var numberTest = /\d+/; //関数が呼び出される度に再定義される
 
         return numberTest.test(value);
@@ -235,9 +235,9 @@ Sencha Cmd は、製品版ビルドでの最適化の際にこの部分を排除
     // 良い
     Ext.define('MyApp.util.RegEx', {
         // 一度だけ定義される
-        numbersRe : /\d+/,
+        numbersRe: /\d+/,
 
-        hasNumbers : function(value) {
+        hasNumbers: function (value) {
             return this.numbersRe.test(value);
         }
     });
@@ -265,12 +265,7 @@ Sencha Cmd は、製品版ビルドでの最適化の際にこの部分を排除
         'Sponge Bob Square Pants! ' +
         'Absorbent and yellow and porous is he!';
 
-    // または Array.join() を使います
-    var stringA = [
-        'Who lives in a pineapple under the sea?',
-        'Sponge Bob Square Pants!',
-        'Absorbent and yellow and porous is he!'
-    ].join(' ');
+**注**: Sencha Cmdでは、上記のような文字の結合を、一つの文字列に変換することで、出力するコードを最適化しています。
 
 ## <a name="Method_Chains" />Method Chains
 
