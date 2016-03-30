@@ -12,7 +12,7 @@ identified the following techniques as proven methods for improving performance:
 ###Library or Framework Code
 
   - [Loops](#Loops)
-  - [Try \ Catch](#Try_Catch)
+  - [Try / Catch](#Try_Catch)
   - [Page Reflow](#Page_Reflow)
   - [Function-based Iteration](#Function_Based_Iteration)
 
@@ -81,7 +81,7 @@ every iteration.
 Whenever possible avoid `for/in` type of loop as they are known to [negatively impact performance](http://jsperf.com/for-in-vs-keys-vs-for). 
     
 
-## <a name="Try_Catch" />Try \ Catch
+## <a name="Try_Catch" />Try / Catch
 
 Avoid try/catch statements when possible as [they cause significant drags on performance](http://jsperf.com/try-catch-in-loop-cost/5).
 
