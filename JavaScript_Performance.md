@@ -11,7 +11,7 @@ Ext JSやSencha Touchフレームワークを構築した経験と、顧客の�
 ###ライブラリまたはフレームワークコード
 
   - [ループ](#Loops)
-  - [Try \ Catch](#Try_Catch)
+  - [Try / Catch](#Try_Catch)
   - [ページのリフロー](#Page_Reflow)
   - [関数ベースのイテレーション](#Function_Based_Iteration)
 
@@ -77,7 +77,7 @@ Yahooチームはそこに何も加えようがないほどの[卓越したパ�
 
 `for/in` 形式のループには、[パフォーマンスに悪影響がある](http://jsperf.com/for-in-vs-keys-vs-for)ことが知られていますので、使わないようにしましょう。
 
-## <a name="Try_Catch" />Try \ Catch
+## <a name="Try_Catch" />Try / Catch
 
 [パフォーマンスに重大な影響を引き起こすので](http://jsperf.com/try-catch-in-loop-cost/5)
 できることなら `try/catch` ステートメントは使わないようにしましょう。
