@@ -1,3 +1,7 @@
+<p align="right">
+  <a href="../Maintainable_JavaScript.md"><img alt="English (US)" title="English (US)" src="https://raw.githubusercontent.com/sencha/flags/master/png/256/US.png" height="18"></a>
+  <a href="Maintainable_JavaScript.md"><img alt="Japanese" title="Japanese" src="https://raw.githubusercontent.com/sencha/flags/master/png/256/JP.png" height="18"></a>
+</p>
 #保守性の高い JavaScript を書く
 
 ロバート グラスは、その著書
