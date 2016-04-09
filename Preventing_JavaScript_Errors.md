@@ -1,4 +1,8 @@
-#Preventing JavaScript Errors
+<p align="right">
+  <a href="Preventing_JavaScript_Errors.md"><img alt="English (US)" title="English (US)" src="https://raw.githubusercontent.com/sencha/flags/master/png/256/US.png" height="18"></a>
+  <a href="ja/Preventing_JavaScript_Errors.md"><img alt="Japanese" title="Japanese" src="https://raw.githubusercontent.com/sencha/flags/master/png/256/JP.png" height="18"></a>
+</p>
+# Preventing JavaScript Errors
 
 [Defensive Programming](http://en.wikipedia.org/wiki/Defensive_programming) is an approach to building software which 
 strives to reduce the likelihood of common problems. Because JavaScript syntax contains many gotchas and edge cases, 
