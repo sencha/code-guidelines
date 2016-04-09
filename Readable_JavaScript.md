@@ -1,4 +1,8 @@
-#Writing Readable JavaScript
+<p align="right">
+  <a href="Readable_JavaScript.md"><img alt="English (US)" title="English (US)" src="https://raw.githubusercontent.com/sencha/flags/master/png/256/US.png" height="18"></a>
+  <a href="ja/Readable_JavaScript.md"><img alt="Japanese" title="Japanese" src="https://raw.githubusercontent.com/sencha/flags/master/png/256/JP.png" height="18"></a>
+</p>
+# Writing Readable JavaScript
 
 The importance of writing "readable" JavaScript simply cannot be overstated. Be kind to the others on your team, 
 and your future self, by writing code that is easy to digest.
