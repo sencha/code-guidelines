@@ -1,4 +1,8 @@
-#Writing Maintainable JavaScript
+<p align="right">
+  <a href="Maintainable_JavaScript.md"><img alt="English (US)" title="English (US)" src="https://raw.githubusercontent.com/sencha/flags/master/png/256/US.png" height="18"></a>
+  <a href="ja/Maintainable_JavaScript.md"><img alt="Japanese" title="Japanese" src="https://raw.githubusercontent.com/sencha/flags/master/png/256/JP.png" height="18"></a>
+</p>
+# Writing Maintainable JavaScript
 
 In his book *Facts and Fallacies of Software Engineering*, Robert Glass discusses how as much as 80% of the total cost 
 of software over its lifetime comes from maintenance tasks. This isn't just fixing bugs; in most cases, "maintenance" 
