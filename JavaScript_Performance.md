@@ -1,4 +1,8 @@
-#Keeping an Eye on Performance
+<p align="right">
+  <a href="JavaScript_Performance.md"><img alt="English (US)" title="English (US)" src="https://raw.githubusercontent.com/sencha/flags/master/png/256/US.png" height="18"></a>
+  <a href="ja/JavaScript_Performance.md"><img alt="Japanese" title="Japanese" src="https://raw.githubusercontent.com/sencha/flags/master/png/256/JP.png" height="18"></a>
+</p>
+# Keeping an Eye on Performance
 
 > *"Performance is only a problem if performance is a problem."*
 
