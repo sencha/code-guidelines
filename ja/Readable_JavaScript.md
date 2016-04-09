@@ -1,3 +1,7 @@
+<p align="right">
+  <a href="../Readable_JavaScript.md"><img alt="English (US)" title="English (US)" src="https://raw.githubusercontent.com/sencha/flags/master/png/256/US.png" height="18"></a>
+  <a href="Readable_JavaScript.md"><img alt="Japanese" title="Japanese" src="https://raw.githubusercontent.com/sencha/flags/master/png/256/JP.png" height="18"></a>
+</p>
 # 読みやすいJavaScriptを書く
 
 「読みやすい」JavaScriptを書く重要性は、単純に誇張しているのではありません。チームの他のメンバーのためだけでなく、未来の自分のためにも、簡単に概要を掴めるコードを書くようにして下さい。
