@@ -1,4 +1,8 @@
-#Resources
+<p align="right">
+  <a href="Resources.md"><img alt="English (US)" title="English (US)" src="https://raw.githubusercontent.com/sencha/flags/master/png/256/US.png" height="18"></a>
+  <a href="ja/Resources.md"><img alt="Japanese" title="Japanese" src="https://raw.githubusercontent.com/sencha/flags/master/png/256/JP.png" height="18"></a>
+</p>
+# Resources
 
 The original inspiration for this guide comes from the [fantastic guide](https://github.com/airbnb/javascript) 
 put together by Airbnb.
