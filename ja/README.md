@@ -1,4 +1,7 @@
-
+<p align="right">
+  <a href="../README.md"><img alt="English (US)" title="English (US)" src="https://raw.githubusercontent.com/sencha/flags/master/png/256/US.png" height="18"></a>
+  <a href="README.md"><img alt="Japanese" title="Japanese" src="https://raw.githubusercontent.com/sencha/flags/master/png/256/JP.png" height="18"></a>
+</p>
 # SenchaのJavaScriptスタイルガイド&ベストプラクティス
 
 この文書は、JavaScriptとHTML5を利用してエンタープライズWebアプリケーションを開発する際のベストプラクティスや推奨事項をまとめたものです。
